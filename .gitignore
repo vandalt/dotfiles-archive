@@ -1,0 +1,4 @@
+.config/onedrive/items.*
+.config/onedrive/refresh_token
+.config/onedrive/resume_upload
+.dotfiles
