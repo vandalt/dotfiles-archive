@@ -18,6 +18,11 @@ runtime! archlinux.vim
 "let skip_defaults_vim=1
 
 " Plugims
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
@@ -36,6 +41,7 @@ Plug 'nvie/vim-flake8'
 "Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Initialize plugin system
 call plug#end()
@@ -90,7 +96,8 @@ syntax enable
 " set background=dark
 " colorscheme solarized
 "colorscheme base16-nord
-colorscheme nord
+"colorscheme nord
+colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE "Transparent
 
 " Line numbers
