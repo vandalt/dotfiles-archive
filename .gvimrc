@@ -35,6 +35,7 @@ Plug 'nvie/vim-flake8'
 " Color scheme
 "Plug 'altercation/vim-colors-solarized'
 Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Initialize plugin system
 call plug#end()
@@ -83,7 +84,8 @@ syntax on
 syntax enable
 "set background=dark
 "colorscheme solarized
-colorscheme nord
+"colorscheme nord
+colorscheme dracula
 
 " Line numbers
 set nu
