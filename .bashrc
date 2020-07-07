@@ -2,17 +2,21 @@
 # ~/.bashrc
 #
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
-alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
-
-# Add home user bin
-export PATH="${PATH}:${HOME}/bin"
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
 # GTK theme for QT apps
 export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORM="xcb"
 
 # >>> conda initialize >>>
 # Removed the first option because it slowed terminal down
@@ -34,6 +38,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # For new terminal in same dir
 source /etc/profile.d/vte.sh
+
+# Alias for vim
+alias vim='vimx'
 
 # Alias for conda astro
 alias condastro='conda activate astro'
