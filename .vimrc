@@ -181,3 +181,9 @@ let g:UltiSnipsEditSplit="vertical"
 "py3 from powerline.vim import setup as powerline_setup
 "py3 powerline_setup()
 "py3 del powerline_setup
+
+set backupdir=~/.vim/backup
+set directory=~/.vim/swap
+
+" mouse support
+set mouse=a
