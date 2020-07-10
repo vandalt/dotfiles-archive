@@ -37,7 +37,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 source /etc/profile.d/vte.sh
 
 # Alias for vim
-alias vim='vimx'
+#alias vim='vimx'
 
 # Alias for conda astro
 alias condastro='conda activate astro'
@@ -47,3 +47,10 @@ alias onestat='systemctl --user status onedrive'
 alias onesync='onedrive --synchronize'
 alias oneresync='onedrive --synchronize --resync'
 alias onemonit='onedrive --monitor'
+
+#if [ -f `which powerline-daemon` ]; then
+#  powerline-daemon -q
+#  POWERLINE_BASH_CONTINUATION=1
+#  POWERLINE_BASH_SELECT=1
+#  . /usr/share/powerline/bash/powerline.sh
+#fi
