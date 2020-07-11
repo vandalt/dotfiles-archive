@@ -37,7 +37,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 source /etc/profile.d/vte.sh
 
 # Alias for vim
-#alias vim='vimx'
+#alias vim='vimx'  # gvim terminal
+alias vim='nvim'  # neovim
+
 
 # Alias for conda astro
 alias condastro='conda activate astro'
