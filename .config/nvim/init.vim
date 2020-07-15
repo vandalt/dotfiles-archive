@@ -10,6 +10,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/deoplete.nvim')  " general
   call dein#add('zchee/deoplete-jedi')   " python
   call dein#add('davidhalter/jedi-vim')   " python
+  call dein#add('alvan/vim-closetag')
 
   " Python Style
   call dein#add('dense-analysis/ale')	    " Syntax
@@ -30,6 +31,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
   call dein#add('scrooloose/nerdtree')
+  call dein#add('ryanoasis/vim-devicons')
 
   " Color scheme
   call dein#add('dracula/vim', { 'name': 'dracula' })
@@ -45,19 +47,19 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-surround')   " Surround text with quotes or brackets
   call dein#add('tpope/vim-fugitive')   " Git
   call dein#add('tpope/vim-commentary') " Commenting out stuff
+  call dein#add('tpope/vim-repeat')     " Repeat stuff from plugins with .
 
   call dein#end()
   call dein#save_state()
 
 endif
 
-" include everything recursively for searches
+" include everything recursively for file searches
 " (can be slow in large projects but generally helpful)
 set path+=**
 
 " Default split locations (more intuitive)
 set splitbelow
-set splitright
 
 " Python autocomplete
 let g:python3_host_prog=system("which python | tr -d '\n'")  " Handle conda envs
@@ -93,11 +95,13 @@ autocmd BufWritePost *.py call flake8#Flake8()
 " UTF-8 support
 set encoding=utf-8
 
+" Theming and window style
 if exists('+termguicolors')
   set t_Co=256
 endif
 colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE "Transparent
+let g:airline_powerline_fonts = 1
 
 " Line numbers
 set nu
@@ -109,12 +113,21 @@ au FileType vim setlocal
     \ shiftwidth=2
     \ expandtab
 
+" Shell scripts
+au FileType sh,zsh setlocal 
+  \ tabstop=2
+  \ softtabstop=2
+  \ shiftwidth=2
+  \ expandtab
+  \ autoindent
+
 " Full stack development
-au BufNewFile, BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
+au FileType js,html,css setlocal
+  \ tabstop=2
+  \ softtabstop=2
+  \ shiftwidth=2
+  \ expandtab
+  \ autoindent
 
 " python with virtualenv and conda env support
 py3 << EOF
@@ -143,9 +156,15 @@ call deoplete#custom#var('omni', 'input_patterns', {
       \})
 g:vimtex_complete_recursive_bib = 1
 
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
 " NERDTree Options
 let NERDTreeIgnore=['\.pyc$', '\~$']  " Ignore some files
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
+autocmd VimEnter * NERDTree
+autocmd BufEnter * NERDTreeMirror
+autocmd VimEnter * wincmd w
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 
 " mouse support
