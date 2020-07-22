@@ -5,6 +5,7 @@ alias cnvim='nvim ~/.config/nvim/init.vim'
 
 # Onedrive
 alias onestat='systemctl --user status onedrive'
+alias onestop='systemctl --user stop onedrive'
 alias onesync='onedrive --synchronize'
 alias oneresync='onedrive --synchronize --resync'
 alias onemonit='onedrive --monitor'
@@ -25,12 +26,13 @@ alias cpsh='config push'
 alias ...="cd ../.."
 
 # Python dev
-jlab='jupyter lab'
-jnote='jupyter notebook'
+alias jlab='jupyter lab'
+alias jnote='jupyter notebook'
 
 # Conda
 alias cup='conda clean -pity; conda update --all'
 alias castro='conda activate astro'
+condastro='conda activate astro'
 alias cbase='conda activate base'
 
 # Utils
@@ -42,3 +44,6 @@ alias untar='tar -xvf'
 alias guntar='tar -xzvf'
 alias buntar='tar -xjvf'
 alias open='xdg-open'
+alias sc='screen'
+alias scr='screen -r'
+alias scs='screen -S'
