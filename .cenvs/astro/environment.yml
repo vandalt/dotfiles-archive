@@ -1,0 +1,38 @@
+name: astro
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - pip
+  - sphinx
+  - astroid
+  - pylint
+  - jedi
+  - cryptography
+  - scikit-learn
+  - uncertainties
+  - matplotlib
+  - numpy
+  - celerite
+  - sympy
+  - scipy
+  - jupyter
+  - seaborn
+  - astropy
+  - ipython
+  - wheel
+  - flake8
+  - pyflakes
+  - george
+  - jupyterlab
+  - conda-build
+  - autograd
+  - pandas
+  - nbsphinx
+  - cython
+  - emcee
+  - h5py
+  - corner
+  - pynvim
+  - pip:
+    - -r requirements.txt
