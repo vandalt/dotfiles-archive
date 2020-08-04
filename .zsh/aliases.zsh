@@ -14,13 +14,6 @@ alias v='nvim'
 alias vim='nvim'
 alias cnvim='nvim ~/.config/nvim/init.vim'
 
-# Onedrive
-alias onestat='systemctl --user status onedrive'
-alias onestop='systemctl --user stop onedrive'
-alias onesync='onedrive --synchronize'
-alias oneresync='onedrive --synchronize --resync'
-alias onemonit='onedrive --monitor'
-
 # Git dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias cst='config status'
@@ -40,15 +33,10 @@ alias ...="cd ../.."
 alias jlab='jupyter lab'
 alias jnote='jupyter notebook'
 
-# Conda
-alias cup='conda clean -pity; conda update --all'
-alias castro='conda activate astro'
-condastro='conda activate astro'
-alias cbase='conda activate base'
-
 # Utils
 alias ll='ls -lh'
 alias la='ls -A'
+alias lla='ls -lA'
 alias dh='du -sch *'
 alias dha='du -d 1 -h .'
 alias untar='tar -xvf'

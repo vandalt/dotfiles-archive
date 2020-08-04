@@ -288,3 +288,9 @@ EOF
   conda env export --name $envName > $lockFile
 
 }
+
+# other useful aliases
+alias cup='conda clean -pity; conda update --all'
+alias castro='conda activate astro'
+condastro='conda activate astro'
+alias cbase='conda activate base'
