@@ -16,6 +16,9 @@ if dein#load_state('~/.cache/dein')
   call dein#add('dense-analysis/ale')	    " Syntax
   call dein#add('nvie/vim-flake8')		    " formatting
 
+  " Jupyter (IPython) notebooks
+  call dein#add('szymonmaszke/vimpyter')
+
   " LaTeX
   call dein#add('lervag/vimtex')
 
@@ -75,6 +78,10 @@ syntax enable
 set foldmethod=indent
 set foldlevel=99
 let g:SimpylFold_docstring_preview=1
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 " PEP 8 standards
 au BufNewFile, BufRead *.py
@@ -188,3 +195,12 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-h> <C-w>h
+
+" Spacebar as leader
+let mapleader=" "
+nnoremap <SPACE> <Nop>
+
+" Jupyter shortcuts
+autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
+autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
