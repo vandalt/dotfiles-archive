@@ -1,0 +1,108 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 24, // Waybar height (to be removed for auto height)
+
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    /* "modules-center": ["sway/window"], */
+    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "backlight", "battery", "clock"],
+
+    // Modules configuration
+    "sway/workspaces": {
+        "disable-scroll": true,
+        /* "all-outputs": true, */
+        "format": "{name}",
+    },
+
+    "sway/mode": {
+        /* "format": "<span style=\"italic\">{}</span>" */
+		"format": " {}"
+    },
+	
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+		"tooltip": false
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 5
+    },
+
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+		"format": "{:%a %b %d %H:%M}",
+    },
+
+    "cpu": {
+        "format": " <span color=\"#cccccc\">{usage}%</span>",
+		"interval": 2,
+		"max-length": 10,
+        "tooltip": false
+
+    },
+
+    "memory": {
+        "format": " <span color=\"#cccccc\">{}%</span>"
+    },
+
+    "battery": {
+        "format": "{icon}<span color=\"#cccccc\"> {capacity}%</span>",
+        "format-icons": ["", "", "", "", ""],
+        "format-charging": "⚡<span color=\"#cccccc\"> {capacity}%</span>",
+        "interval": 30,
+        "bat": "BAT1",
+        "adapter": "ADP1",
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "tooltip": false
+    },
+
+	"backlight": {
+        "format": "{icon}<span color=\"#cccccc\"> {percent}</span>",
+        "format-alt": "{percent}% {icon}",
+        "format-alt-click": "click-right",
+        "format-icons": [""],
+        "on-scroll-down": "brightnessctl set 5%-",
+        "on-scroll-up": "brightnessctl set +5%",
+    },
+
+	"network": {
+        "format": "{icon}",
+        "format-wifi": "<span color=\"#cccccc\"> {signalStrength}%</span>",
+        "format-alt": "{ipaddr}/{cidr} {icon}",
+        "format-alt-click": "click-right",
+        "format-disconnected": "<span color=\"#cccccc\">{icon}</span>",
+        "format-icons": {
+            "wifi": [""],
+            "ethernet": [""],
+			"disconnected": [""]
+        },
+      "on-click": "termite -e nmtui",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+	  "tooltip": true
+    },
+
+	"pulseaudio": {
+        "format": "{icon}<span color=\"#cccccc\"> {volume}%</span>",
+        "format-alt": "{volume}% {icon}",
+        "format-alt-click": "click-right",
+        "format-muted": " Muted",
+        "format-icons": {
+            "phone": [" ", " ", " "],
+            "headphone": [" ", " ", " "],
+            "default": ["", "", ""]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "tooltip": false
+    },
+}

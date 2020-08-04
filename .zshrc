@@ -31,3 +31,12 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
+
+# QT apps
+# export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORMTHEME=wayland-egl
+# export QT_WAYLAND_FORCE_DPI=96
+
+# Firefox on wayland
+MOZ_ENABLE_WAYLAND=1
+export MOZ_ENABLE_WAYLAND
