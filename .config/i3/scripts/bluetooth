@@ -19,8 +19,8 @@ bluetooth_print() {
     	    fi
     
     	    counter=$((counter + 1))
-	else
-	    echo "On"
+        else
+          echo "On"
         fi
     
     else
