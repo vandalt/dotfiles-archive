@@ -23,13 +23,17 @@ set $screenclip grim - | wl-copy
 set $areaclip slurp | grim  -g - - | wl-copy
 
 # Applications
-set $term alacritty
+set $term kitty
 set $browser firefox
 set $mail thunderbird
-set $menu "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu '"
+# set $menu "dmenu_run -b -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu '"
+set $menu rofi -show run -config ~/.config/rofi/launcher-keys.rasi
+set $appmenu rofi -show drun -config ~/.config/rofi/launcher-keys.rasi
 
 # Hardware
 set $touchpad "1739:52542:SYNA2B31:00_06CB:CD3E_Touchpad"
+set $finger "1386:20963:Wacom_HID_51E3_Finger"
+set $pen "1386:20963:Wacom_HID_51E3_Pen"
 
 # Workspaces
 set $ws1  1:1
@@ -56,15 +60,19 @@ input $touchpad {
 	tap enabled
 	natural_scroll enabled
 	middle_emulation enabled
+	accel_profile adaptive
 }
 
 # Keyboard configuration
 input * {
 	repeat_delay 250
-	xkb_layout "us,us"
-	xkb_variant ",intl"
-	xkb_options "grp:win_space_toggle"
+	xkb_layout "us"
+	xkb_options "grp:win_space_toggle,caps:escape,shift:both_capslock,compose:ralt"
 }
+
+# Map touchscreen to output
+input $finger map_to_output $out1
+input $pen map_to_output $out1
 
 # Hide mouse cursor after a period of inactivity.
 seat seat0 hide_cursor 3000
@@ -89,13 +97,17 @@ output * bg $background fill
 # Monitors
 output $out1 scale 2.0 
 output $out1 pos 0 0 res 3840 2160
-output $out2 scale 2.0 
+output $out2 scale 2.0
 output $out2 pos 1920 0 res 3840 2160
-output $out3 scale 2.0 
+output $out3 scale 2.0
 output $out3 pos 1920 0 res 3840 2160
+exec sh -c "swaymsg xwayland scale 2; echo Gdk/WindowScalingFactor 2 > ~/.config/xsettingsd/xsettingsd.conf; killall -HUP xsettingsd"
+
+# Toggle waybar
+bindsym $mod+Shift+i exec killall -SIGUSR1 waybar
 
 bar {
-
+	
 	swaybar_command waybar
 
     # position top
@@ -139,6 +151,21 @@ workspace $ws8 gaps inner 13
 # Notification dameo
 exec mako --default-timeout 2500 --font "$font"
 
+# Break timer
+exec safeeyes
+
+# Rotation daemon
+exec rot8
+
+# Tablet mode
+exec watch_tablet
+
+# Touchpad gestures
+exec libinput-gestures-setup start
+
+# Blue light filter
+exec $bin/gstep start
+
 # Idle: lock after 5 mins, blank after 10 mins
 exec swayidle -w \
 	timeout 300 '$lock' \
@@ -157,7 +184,9 @@ assign [app_id="thunderbird"] $ws9
 
 # Floating
 for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="termite"] floating enable
+for_window [app_id="blueberry.py"] floating enable
+for_window [class="Safeeyes"] floating enable
+for_window [app_id="Alacritty"] floating enable
 
 # Workspaces on big screen
 workspace $ws1 output $out2 $out3 $out1
@@ -180,7 +209,8 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'Are you sure you want to exit?'
 bindsym $mod+Backspace exec $lock
 
 # Program menus
-bindsym $mod+grave exec $menu
+bindsym $mod+grave exec $appmenu
+bindsym $mod+Shift+grave exec $menu
 
 # App launchers
 bindsym $mod+Return exec $term
@@ -196,7 +226,7 @@ bindsym --release Control+Print exec $screenclip
 bindsym --release Control+Shift+Print exec $areaclip
 
 # Notifications
-bindsym $mod+Shift+n exec makoctl dismiss --all
+bindsym $mod+Shift+d exec makoctl dismiss --all
 
 # Move focus around
 bindsym $mod+$left focus left
@@ -253,7 +283,7 @@ bindsym $mod+f fullscreen
 
 # Toggle between floating and tiling
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+f focus mode_toggle
 
 # Focus parent or child
 bindsym $mod+a focus parent
@@ -261,6 +291,9 @@ bindsym $mod+c focus child
 
 # Toggle between two latest workspaces
 bindsym $mod+Tab workspace back_and_forth
+
+# Switch window with list
+bindsym $mod+w exec $bin/window-switch
 
 # Toggle border style
 bindsym $mod+b exec swaymsg border toggle
@@ -282,9 +315,18 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 
 # Alternative playerctl bindings
 bindsym --locked $mod+Control+p exec playerctl play-pause
-bindsym --locked $mod+Control+n exec playerctl next
-bindsym --locked $mod+Control+b exec playerctl previous
+bindsym --locked $mod+Control+bracketright exec playerctl next
+bindsym --locked $mod+Control+bracketleft exec playerctl previous
 
+# Bluetooth
+bindsym --locked $mod+Shift+b exec $bin/togblue
+
+# Night light
+bindsym --locked $mod+Shift+n exec $bin/gstep toggle
+
+
+# Power
+bindsym --locked $mod+Shift+s exec systemctl suspend
 
 # Resize windows
 mode "resize" {
