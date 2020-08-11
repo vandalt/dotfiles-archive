@@ -3,7 +3,7 @@
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: "DejaVu Sans Mono";
-    font-size: 13px;
+    font-size: 14px;
     min-height: 0;
 }
 
@@ -13,6 +13,10 @@ window#waybar {
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
+}
+
+window#waybar.hidded {
+    opacity: 0.0;
 }
 
 #workspaces button {
@@ -46,9 +50,12 @@ window#waybar {
 #network,
 #pulseaudio,
 #tray,
-#idle_inhibitor
+#idle_inhibitor,
+#custom-spotify,
+#custom-weather
 {
-    margin:    0px 4px 0px 10px;
+    margin:    0px 4px 0px 4px;
+    padding: 0px 4px 0px 4px;
     min-width: 25px;
 }
 
@@ -81,6 +88,7 @@ window#waybar {
 
 #battery.warning {
    color:       rgba(255, 210, 4, 1);
+   /* background-color: rgba(255, 255, 255, 0); */
 }
 
 #battery.critical {
@@ -113,6 +121,22 @@ label:focus {
 
 #pulseaudio.muted {
     color: #90b1b1;
+}
+
+#custom-bluetooth.on {
+    color: #0585fc;
+}
+
+#custom-bluetooth.off {
+    color: #90b1b1;
+}
+
+#custom-nightlight.on {
+	color: #fa6868;
+}
+
+#custom-nightlight.off {
+    color: #aad4e5;
 }
 
 #tray {
