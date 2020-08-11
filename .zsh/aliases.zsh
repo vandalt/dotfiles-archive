@@ -25,6 +25,8 @@ alias cco='config checkout'
 alias cdf='config diff'
 alias cpsh='config push'
 
+# Kitty terminal
+alias icat="kitty +kitten icat"
 
 # Two dirs up
 alias ...="cd ../.."
@@ -33,7 +35,13 @@ alias ...="cd ../.."
 alias jlab='jupyter lab'
 alias jnote='jupyter notebook'
 
+# Power
+alias sdn='shutdown now'
+alias rbt='reboot'
+
 # Utils
+alias l='ls'
+alias sl='ls'
 alias ll='ls -lh'
 alias la='ls -A'
 alias lla='ls -lA'
