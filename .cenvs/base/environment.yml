@@ -1,3 +1,0 @@
-name: astro
-  - pip:
-    - -r requirements.txt
