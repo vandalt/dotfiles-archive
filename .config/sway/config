@@ -67,7 +67,7 @@ input $touchpad {
 input * {
 	repeat_delay 250
 	xkb_layout "us"
-	xkb_options "grp:win_space_toggle,caps:escape,shift:both_capslock,compose:ralt"
+	xkb_options "grp:win_space_toggle,caps:escape,shift:both_capslock_cancel,compose:ralt"
 }
 
 # Map touchscreen to output
@@ -186,6 +186,7 @@ assign [app_id="thunderbird"] $ws9
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="blueberry.py"] floating enable
 for_window [class="Safeeyes"] floating enable
+for_window [class="zoom"] floating enable
 for_window [app_id="Alacritty"] floating enable
 
 # Workspaces on big screen
@@ -216,8 +217,11 @@ bindsym $mod+Shift+grave exec $menu
 bindsym $mod+Return exec $term
 bindsym $mod+i exec $browser
 bindsym $mod+m exec $mail
+bindsym $mod+Shift+m exec slack
 bindsym $mod+n exec $term -e joplin
+bindsym $mod+Shift+n exec joplin-desktop
 bindsym $mod+u exec spotify
+bindsym $mod+f exec nautilus
 
 # Screenshot
 bindsym --release Print exec $screenshot
@@ -279,11 +283,11 @@ bindsym $mod+e layout toggle split
 bindsym $mod+y layout toggle tabbed split
 
 # Focused container in full screen
-bindsym $mod+f fullscreen
+bindsym $mod+Shift+f fullscreen
 
 # Toggle between floating and tiling
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+Shift+f focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # Focus parent or child
 bindsym $mod+a focus parent
@@ -322,7 +326,7 @@ bindsym --locked $mod+Control+bracketleft exec playerctl previous
 bindsym --locked $mod+Shift+b exec $bin/togblue
 
 # Night light
-bindsym --locked $mod+Shift+n exec $bin/gstep toggle
+bindsym --locked $mod+Shift+r exec $bin/gstep toggle
 
 
 # Power
