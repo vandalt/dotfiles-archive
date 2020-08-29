@@ -1,0 +1,17 @@
+# Sync mailboxes now
+macro index S "!mbsync -a^M" "Update through mbsync"
+
+# Save message somewhere else
+macro index M "<save-message>?<toggle-mailboxes>"
+
+# Follow urls in message
+macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+# Multi/alternatives for text and html in composed messages
+macro compose K "| pandoc -o /tmp/neomutt-alternative.html<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><previous-entry><tag-entry><group-alternatives>"
+
+# Jump to mailboxes/folders
+macro index <esc>1 "<change-folder> =udem/Inbox/<enter>"
+macro index <esc>2 "<change-folder> =personal/Inbox/<enter>"
+macro index <esc>3 "<change-folder> =udem/ASTRO/<enter>"
+macro index <esc>4 "<change-folder> =udem/McGill/<enter>"
