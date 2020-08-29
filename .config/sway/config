@@ -166,6 +166,9 @@ exec libinput-gestures-setup start
 # Blue light filter
 exec $bin/gstep start
 
+# Disk mounting
+exec udiskie
+
 # Idle: lock after 5 mins, blank after 10 mins
 exec swayidle -w \
 	timeout 300 '$lock' \
