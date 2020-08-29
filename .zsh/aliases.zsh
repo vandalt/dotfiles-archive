@@ -25,6 +25,17 @@ alias cco='config checkout'
 alias cdf='config diff'
 alias cpsh='config push'
 
+# Git private dotfiles
+alias pconfig='/usr/bin/git --git-dir=$HOME/.private_dotfiles/ --work-tree=$HOME'
+alias pcst='pconfig status'
+alias pca='pconfig add'
+alias pccmsg='pconfig commit -m'
+alias pcb='pconfig branch'
+alias pccb='pconfig checkout -b'
+alias pcco='pconfig checkout'
+alias pcdf='pconfig diff'
+alias pcpsh='pconfig push'
+
 # Kitty terminal
 alias icat="kitty +kitten icat"
 
