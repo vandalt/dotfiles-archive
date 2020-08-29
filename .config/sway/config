@@ -67,7 +67,7 @@ input $touchpad {
 input * {
 	repeat_delay 250
 	xkb_layout "us"
-	xkb_options "grp:win_space_toggle,caps:escape,shift:both_capslock_cancel,compose:ralt"
+	xkb_options "grp:win_space_toggle,caps:escape,shift:both_capslock,compose:ralt"
 }
 
 # Map touchscreen to output

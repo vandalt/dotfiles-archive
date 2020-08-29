@@ -175,6 +175,15 @@ autocmd VimEnter * wincmd w
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 
+" Mutt emails
+au BufRead /tmp/mutt-* set tw=72
+
+" Restart where left
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
 " mouse support
 set mouse=a
 

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM 'kpartgui.dtd'>
-<kpartgui name="okular_part" version="43">
+<kpartgui version="47" name="okular_part">
  <MenuBar>
   <Menu name="file">
    <text>&amp;File</text>
@@ -49,7 +49,6 @@
     <Action name="view_orientation_rotate_cw"/>
     <Action name="view_orientation_original"/>
    </Menu>
-   <Action name="view_pagesizes"/>
    <Action name="view_trim_mode"/>
    <Separator/>
    <Action name="view_toggle_forms"/>
@@ -106,24 +105,46 @@
  </MenuBar>
  <ToolBar name="mainToolBar">
   <text>Main Toolbar</text>
-  <Action name="go_previous"/>
-  <Action name="go_next"/>
-  <Separator/>
-  <Action name="zoom_to"/>
-  <Action name="view_zoom_out"/>
-  <Action name="view_zoom_in"/>
+  <Action name="show_leftpanel"/>
   <Separator/>
   <Action name="mouse_drag"/>
-  <Action name="mouse_zoom"/>
   <Action name="mouse_selecttools"/>
+  <Action name="annotation_favorites"/>
+  <Spacer/>
+  <Action name="page_number"/>
+  <Spacer/>
+  <Action name="view_zoom_out"/>
+  <Action name="zoom_to"/>
+  <Action name="view_zoom_in"/>
  </ToolBar>
- <ActionProperties>
-  <Action name="go_next" shortcut=""/>
-  <Action name="go_previous" shortcut=""/>
-  <Action name="view_auto_fit" shortcut="A"/>
-  <Action name="view_fit_to_page" shortcut="F"/>
-  <Action name="view_fit_to_width" shortcut="W"/>
-  <Action name="view_orientation_rotate_ccw" shortcut="Ctrl+Shift+R"/>
-  <Action name="view_orientation_rotate_cw" shortcut="Ctrl+R"/>
+ <ToolBar hidden="true" name="annotationToolBar" newline="true" iconText="icononly">
+  <text>Annotation Toolbar</text>
+  <Action name="annotation_highlighter"/>
+  <Action name="annotation_underline"/>
+  <Action name="annotation_squiggle"/>
+  <Action name="annotation_strike_out"/>
+  <Action name="annotation_typewriter"/>
+  <Action name="annotation_inline_note"/>
+  <Action name="annotation_popup_note"/>
+  <Action name="annotation_freehand_line"/>
+  <Action name="annotation_geometrical_shape"/>
+  <Action name="annotation_stamp"/>
+  <Separator/>
+  <Action name="annotation_settings_width"/>
+  <Action name="annotation_settings_color"/>
+  <Action name="annotation_settings_inner_color"/>
+  <Action name="annotation_settings_opacity"/>
+  <Action name="annotation_settings_font"/>
+  <Action name="annotation_settings_advanced"/>
+  <Separator/>
+  <Action name="annotation_bookmark"/>
+  <Action name="annotation_settings_pin"/>
+  <Spacer/>
+  <Action name="hide_annotation_toolbar"/>
+ </ToolBar>
+ <ActionProperties scheme="Default">
+  <Action shortcut="" name="go_next"/>
+  <Action shortcut="" name="go_previous"/>
+  <Action shortcut="Ctrl+N" name="show_bottombar"/>
  </ActionProperties>
 </kpartgui>

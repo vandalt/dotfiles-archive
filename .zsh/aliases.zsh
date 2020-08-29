@@ -39,6 +39,9 @@ alias jnote='jupyter notebook'
 alias sdn='shutdown now'
 alias rbt='reboot'
 
+# Emails
+alias neomutt='cd ~/Downloads && neomutt'
+
 # Utils
 alias l='ls'
 alias sl='ls'
@@ -54,3 +57,4 @@ alias open='xdg-open'
 alias sc='screen'
 alias scr='screen -r'
 alias scs='screen -S'
+alias scls='screen -ls'
