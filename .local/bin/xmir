@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Add external monitor on right or left
+intern=eDP1
+extern=HDMI1
+
+# Check if HiDPI
+dpi=$(xrdb -query | grep dpi | grep -o -E '[0-9]*')
+if [ $dpi -eq 192 ]; then
+    scale="2x2"
+else
+    scale="1x1"
+fi
+
+# Get width of each monitor (adapt scale of external for HiDPI)
+wext=$(xrandr | grep -A 1 "$extern" | awk '/+/{getline; print}' | awk '{print$1;}' | cut -d x -f 1)
+hext=$(xrandr | grep -A 1 "$extern" | awk '/+/{getline; print}' | awk '{print$1;}' | cut -d x -f 2)
+wint=$(xrandr | grep -A 1 "$intern" | awk '/+/{getline; print}' | awk '{print$1;}' | cut -d x -f 1)
+hint=$(xrandr | grep -A 1 "$intern" | awk '/+/{getline; print}' | awk '{print$1;}' | cut -d x -f 2)
+#wext=$(( $wext * $(echo $scale | cut -d x -f 1) ))
+
+# Compute ratio
+wfact=$(echo "scale=4; $wint / $wext" | bc)
+hfact=$(echo "scale=4; $hint / $hext" | bc)
+xrandr --output "$extern" --auto --scale "$wfact"x"$hfact"

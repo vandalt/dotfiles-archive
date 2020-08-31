@@ -10,7 +10,7 @@ set $up k
 set $right l
 set $font Monospace 10
 set $background ~/Pictures/aurores/forest.jpg
-set $bin ~/bin/sway
+set $bin ~/.local/bin/sway
 set $out1 eDP-1
 set $out2 DP-2
 set $out3 DP-3
@@ -167,6 +167,7 @@ exec libinput-gestures-setup start
 exec $bin/gstep start
 
 # Disk mounting
+# Use udiskie --appindicator for tray icon
 exec udiskie
 
 # Idle: lock after 5 mins, blank after 10 mins

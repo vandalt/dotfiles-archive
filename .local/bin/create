@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# script to create executable bash file in pwd
+
+# create file
+fpath=$1
+touch $fpath
+
+# make executable
+chmod +x $fpath
+
+# append default first line
+echo "#!$SHELL" >> $fpath

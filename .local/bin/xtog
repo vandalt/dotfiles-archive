@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Toggle external monitor (if HDMI plugged, use only HDMI)
+intern=eDP1
+extern=HDMI1
+
+# Check if HiDPI
+dpi=$(xrdb -query | grep dpi | grep -o -E '[0-9]*')
+if [ $dpi -eq 192 ]; then
+    scale="2x2"
+else
+    scale="1x1"
+fi
+
+if xrandr | grep "$extern disconnected"; then
+    xrandr --output "$extern" --off --output "$intern" --auto
+else
+    xrandr --output "$intern" --off --output "$extern" --auto --scale "$scale"
+fi

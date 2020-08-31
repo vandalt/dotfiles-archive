@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Use external monitor only
+intern=eDP1
+extern=HDMI1
+
+# Check if HiDPI
+dpi=$(xrdb -query | grep dpi | grep -o -E '[0-9]*')
+if [ $dpi -eq 192 ]; then
+    scale="2x2"
+else
+    scale="1x1"
+fi
+
+# Use external monitor
+xrandr --output "$intern" --off --output "$extern" --auto --scale "$scale"

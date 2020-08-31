@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Toggle top panel in Mate
+
+hide=$(gsettings get org.mate.panel.toplevel:/org/mate/panel/toplevels/top/ auto-hide)
+
+[ "$hide" = "true" ] && hide="false" || hide="true";
+gsettings set org.mate.panel.toplevel:/org/mate/panel/toplevels/top/ auto-hide $hide
