@@ -8,7 +8,7 @@ macro index M "<save-message>?<toggle-mailboxes>"
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 
 # Multi/alternatives for text and html in composed messages
-macro compose K "| pandoc -o /tmp/neomutt-alternative.html<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><previous-entry><tag-entry><group-alternatives>"
+macro compose K "| pandoc -f markdown -t html -o /tmp/neomutt-alternative.html<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><previous-entry><tag-entry><group-alternatives>"
 
 # Jump to mailboxes/folders
 macro index <esc>1 "<change-folder> =udem/Inbox/<enter>"
