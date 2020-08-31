@@ -44,6 +44,12 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
+
+if ! [[ "$PATH" =~ "/usr/bin/core_perl:" ]]
+then
+    PATH="/usr/bin/core_perl:$PATH"
+fi
+
 export PATH
 
 # QT apps
