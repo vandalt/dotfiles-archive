@@ -65,6 +65,8 @@ unset markers										   # Dont't show '+' on wrapped lines
 set edit_headers										  # Allow to edit headers in editor
 set editor = "nvim"										  # Use neovim
 set mime_type_query_command = "xdg-mime query filetype"	  # Determine mime type of attachments
+set include
+set attribution = "\nOn %d, %n wrote:\n"				  # Pattern before message replied to
 
 ### Sidebar ###
 set sidebar_visible = yes								  # Show sidebar by default

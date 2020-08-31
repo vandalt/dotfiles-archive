@@ -22,6 +22,10 @@ if dein#load_state('~/.cache/dein')
   " LaTeX
   call dein#add('lervag/vimtex')
 
+  " Markdown
+  call dein#add('godlygeek/tabular')
+  call dein#add('plasticboy/vim-markdown')
+
   " Better Folding
   call dein#add('tmhedberg/SimpylFold')
 
@@ -137,6 +141,33 @@ au FileType js,html,css setlocal
   \ expandtab
   \ autoindent
 
+" Markdown and text
+autocmd BufNewFile,BufRead *.md,*.txt set filetype=markdown " Treat text as md
+set conceallevel=2
+au FileType markdown setlocal
+  \ tabstop=2
+  \ softtabstop=2
+  \ shiftwidth=2
+  \ expandtab
+  \ spell spelllang=en_ca
+
+au FileType tex setlocal spell spelllang=en_ca
+
+" Configuration for vim-markdown
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 1
+
+
+
 " python with virtualenv and conda env support
 py3 << EOF
 import os
@@ -168,8 +199,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 
 " NERDTree Options
 let NERDTreeIgnore=['\.pyc$', '\~$']  " Ignore some files
-"autocmd vimenter * NERDTree
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree         " Open on startup
 autocmd BufEnter * NERDTreeMirror
 autocmd VimEnter * wincmd w
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
