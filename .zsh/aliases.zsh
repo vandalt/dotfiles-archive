@@ -36,6 +36,12 @@ alias pcco='pconfig checkout'
 alias pcdf='pconfig diff'
 alias pcpsh='pconfig push'
 
+# Google calendar CLI
+alias gadd='gcalcli add'
+alias gcalm='gcalcli calm'
+alias gcalw='gcalcli calw'
+alias gagenda='gcalcli agenda'
+
 # Kitty terminal
 alias icat="kitty +kitten icat"
 
