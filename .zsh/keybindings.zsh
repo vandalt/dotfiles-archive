@@ -1,5 +1,21 @@
 # Adapted from https://wiki.archlinux.org/index.php/zsh#Key_bindings
 
+# Vi mode
+bindkey -v
+
+# Keep a few emacs bindings
+bindkey '^l' clear-screen
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '^f' forward-char
+bindkey '^b' backward-char
+bindkey '^p' up-line-or-history
+bindkey '^n' down-line-or-history
+bindkey '^d' delete-char-or-list
+bindkey '^h' backward-delete-char
+bindkey '^[d' kill-word
+bindkey '^[^h' backward-kill-word
+
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
