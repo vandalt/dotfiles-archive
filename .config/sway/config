@@ -25,7 +25,7 @@ set $areaclip slurp | grim  -g - - | wl-copy
 # Applications
 set $term kitty
 set $browser firefox
-set $mail thunderbird
+set $mail $term -e neomutt
 # set $menu "dmenu_run -b -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu '"
 set $menu rofi -show run -config ~/.config/rofi/launcher-keys.rasi
 set $appmenu rofi -show drun -config ~/.config/rofi/launcher-keys.rasi
@@ -184,7 +184,6 @@ exec swayidle -w \
 # Workspaces
 assign [app_id="firefox"] $ws2
 assign [class="Chromium"] $ws2
-assign [app_id="thunderbird"] $ws9
 
 # Floating
 for_window [app_id="pavucontrol"] floating enable
@@ -225,7 +224,7 @@ bindsym $mod+Shift+m exec slack
 bindsym $mod+n exec $term -e joplin
 bindsym $mod+Shift+n exec joplin-desktop
 bindsym $mod+u exec spotify
-bindsym $mod+f exec nautilus
+bindsym $mod+f exec $term -e ranger
 
 # Screenshot
 bindsym --release Print exec $screenshot
@@ -331,7 +330,6 @@ bindsym --locked $mod+Shift+b exec $bin/togblue
 
 # Night light
 bindsym --locked $mod+Shift+r exec $bin/gstep toggle
-
 
 # Power
 bindsym --locked $mod+Shift+s exec systemctl suspend
