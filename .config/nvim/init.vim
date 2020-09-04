@@ -66,26 +66,39 @@ endif
 " (can be slow in large projects but generally helpful)
 set path+=**
 
-" Default split locations (more intuitive)
-set splitbelow
 
-" Python autocomplete
-let g:python3_host_prog=system("which python | tr -d '\n'")  " Handle conda envs
-let g:deoplete#enable_at_startup = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#use_splits_not_buffers = "right"
+" Basic config
+set splitbelow             " Default split locations (more intuitive)
+filetype plugin indent on  " Indentation
+syntax enable              " Syntax highlight
+set ignorecase             " Ignore case in searces and subs
+set smartcase              " When upper case, don't ignore
+set nu rnu                 " Line numbers (hybrid)
+set encoding=utf-8         " UTF-8 support
+set mouse=a                " Enable mouse
 
-filetype plugin indent on
-syntax enable
+" Default indentation
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 let g:SimpylFold_docstring_preview=1
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+" Restart with cursor where it left
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
+" Python autocomplete
+let g:python3_host_prog=system("which python | tr -d '\n'")  " Handle conda envs
+let g:deoplete#enable_at_startup = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#use_splits_not_buffers = "right"
 
 " PEP 8 standards
 au BufNewFile, BufRead *.py
@@ -98,14 +111,11 @@ au BufNewFile, BufRead *.py
     \ set fileformat=unix
 autocmd FileType python set colorcolumn=80
 
-" Flag useless whitespaces
+" Flag useless whitespaces in code
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Auto pep8 check when saving (run with F7 to avois syntastic incomp)
 autocmd BufWritePost *.py call flake8#Flake8()
-
-" UTF-8 support
-set encoding=utf-8
 
 " Theming and window style
 if exists('+termguicolors')
@@ -115,10 +125,7 @@ colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE "Transparent
 let g:airline_powerline_fonts = 1
 
-" Line numbers (hybrid)
-set nu rnu
-
-" vim script
+" Vim scripts
 au FileType vim setlocal
     \ tabstop=2
     \ softtabstop=2
@@ -151,7 +158,8 @@ au FileType markdown setlocal
   \ expandtab
   \ spell spelllang=en_ca
 
-au FileType tex setlocal spell spelllang=en_ca
+" Wrap mutt emails
+au BufRead /tmp/mutt-* set tw=72
 
 " Configuration for vim-markdown
 let g:vim_markdown_conceal = 2
@@ -165,8 +173,6 @@ let g:vim_markdown_edit_url_in = 'tab'
 let g:vim_markdown_follow_anchor = 1
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_auto_insert_bullets = 1
-
-
 
 " python with virtualenv and conda env support
 py3 << EOF
@@ -193,29 +199,24 @@ endif
 call deoplete#custom#var('omni', 'input_patterns', {
       \ 'tex': g:vimtex#re#deoplete
       \})
-g:vimtex_complete_recursive_bib = 1
+let g:vimtex_complete_recursive_bib = 1
+
+" Spelling in tex files
+au FileType tex setlocal spell spelllang=en_ca
 
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 
 " NERDTree Options
 let NERDTreeIgnore=['\.pyc$', '\~$']  " Ignore some files
 " autocmd VimEnter * NERDTree         " Open on startup
-autocmd BufEnter * NERDTreeMirror
-autocmd VimEnter * wincmd w
+" autocmd BufEnter * NERDTreeMirror
+" autocmd VimEnter * wincmd w
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 
-" Mutt emails
-au BufRead /tmp/mutt-* set tw=72
-
-" Restart where left
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g'\"" | endif
-endif
-
-" mouse support
-set mouse=a
+" Change spelling
+map <A-f> :setlocal spell spelllang=fr<CR>
+map <A-e> :setlocal spell spelllang=en_ca<CR>
 
 " Easily scroll next window
 nnoremap <C-j> <C-w>p<C-e><C-w>p
