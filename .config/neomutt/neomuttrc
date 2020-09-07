@@ -20,6 +20,7 @@ named-mailboxes "  McGill" "=udem/McGill"		 # Old McGill mail
 named-mailboxes "Personal" "+personal/Inbox"     # Personal account
 named-mailboxes "  Sent" "=personal/Sent"
 named-mailboxes "  Drafts" "=personal/Drafts"
+named-mailboxes "  Junk" "=personal/Junk"
 named-mailboxes "  Deleted" "=personal/Deleted"
 
 

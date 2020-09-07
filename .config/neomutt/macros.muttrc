@@ -11,7 +11,7 @@ macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 macro compose K "| pandoc -f markdown -t html -o /tmp/neomutt-alternative.html<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><previous-entry><tag-entry><group-alternatives>"
 
 # Jump to mailboxes/folders
-macro index <esc>1 "<change-folder> =udem/Inbox/<enter>"
-macro index <esc>2 "<change-folder> =personal/Inbox/<enter>"
-macro index <esc>3 "<change-folder> =udem/ASTRO/<enter>"
-macro index <esc>4 "<change-folder> =udem/McGill/<enter>"
+macro index 1 "<change-folder> =udem/Inbox/<enter>"
+macro index 2 "<change-folder> =personal/Inbox/<enter>"
+macro index 3 "<change-folder> =udem/ASTRO/<enter>"
+macro index 4 "<change-folder> =udem/McGill/<enter>"
