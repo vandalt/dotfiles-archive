@@ -23,7 +23,7 @@
 
 	"custom/touchbar": {
         "format": "<span color=\"#cccccc\"></span> ",
-		"on-click": "$HOME/bin/sway/touchbar start",
+		"on-click": "/home/vandal/.local/bin/sway/touchbar start",
 		"tooltip": false
 	},
 	
