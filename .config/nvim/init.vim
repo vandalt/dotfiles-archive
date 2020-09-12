@@ -158,8 +158,16 @@ au FileType markdown setlocal
   \ expandtab
   \ spell spelllang=en_ca
 
+" Mail options
+au FileType mail setlocal
+  \ tw=72
+  \ spell spelllang=en_ca
+
+" Disable spelling for Joplin notes
+autocmd BufNewFile,BufRead ~/.config/joplin/tmp/*.md setlocal spell<
+
 " Wrap mutt emails
-au BufRead /tmp/mutt-* set tw=72
+" au BufRead /tmp/mutt-* set tw=72
 
 " Configuration for vim-markdown
 let g:vim_markdown_conceal = 2
