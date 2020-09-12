@@ -3,16 +3,16 @@
 CLOSE='  Close'
 IFS=
 MENU=(
-'Alacritty'
-'Qutebrowser'
 'Firefox'
+'Write|write_stylus'
+'Kitty'
+'Qutebrowser'
 'Chromium'
 'Slack'
 'Libreoffice|soffice'
 'Spotify'
 'File Manager|nautilus'
 'Video Player|mpv --player-operation-mode=pseudo-gui --'
-'Thunderbird'
 )
 
 menu() {
