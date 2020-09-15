@@ -66,6 +66,9 @@ endif
 " (can be slow in large projects but generally helpful)
 set path+=**
 
+" Spacebar as leader
+let mapleader=" "
+nnoremap <SPACE> <Nop>
 
 " Basic config
 set splitbelow             " Default split locations (more intuitive)
@@ -212,6 +215,9 @@ let g:vimtex_complete_recursive_bib = 1
 " Spelling in tex files
 au FileType tex setlocal spell spelllang=en_ca
 
+" Compile
+au FileType tex map <Leader><CR> :VimtexCompile<CR>
+
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 
 " NERDTree Options
@@ -243,10 +249,6 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-h> <C-w>h
-
-" Spacebar as leader
-let mapleader=" "
-nnoremap <SPACE> <Nop>
 
 " Jupyter shortcuts
 autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
