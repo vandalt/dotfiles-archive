@@ -38,7 +38,6 @@ EOF
   echo "$condaVersion"
 
   # Find the action
-  action="activate"
   case "$1" in
   new|create)
     action="create"
@@ -80,6 +79,8 @@ EOF
     action="clean"
     shift
     ;;
+  *)
+    action="activate"
   esac
 
   if [[ "$action" = "deactivate" ]]; then
@@ -90,6 +91,7 @@ EOF
   help=n
   pip=n
   envName="$CONDA_DEFAULT_ENV"
+  echo $envName
   active=y
   if [[ -z $envName ]]; then
     active=n
@@ -145,7 +147,7 @@ EOF
 
   # Set env dir
   if [[ -z $envDir ]]; then
-    envDir="$HOME/.cenvs/$envName"
+    envDir="./env"
   fi
   
   # Set env file
@@ -173,6 +175,7 @@ EOF
     read "flag?Remove this environment ($envName)? [y/N]: "
     if [[ "$flag" = "y" ]] || [[ "$flag" = "Y" ]]; then
       echo -n "Removing: environment $envName and dir $envDir"
+      conda deactivate
       rm -rf $envDir
       conda remove --name $envName --all
     fi
@@ -287,6 +290,17 @@ EOF
   fi
   conda env export --name $envName > $lockFile
 
+}
+
+cd_env () {
+    # Change directory and activate a conda environment if it's present.
+    # Use command to ignore the aliasing of cd
+    command cd $1;
+    if [[ -e "env/environment.yml" ]]; then
+        cenv;
+    else
+        cenv $HOME/environment.yml;
+    fi
 }
 
 # other useful aliases
