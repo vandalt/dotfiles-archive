@@ -51,6 +51,7 @@ alias ...="cd ../.."
 # Python dev
 alias jlab='jupyter lab'
 alias jnote='jupyter notebook'
+alias aperoenv="cenv activate -n apero-env -f /home/vandal/Documents/apero-drs/setup/envs/apero-env-2020-06-03.yml; source /home/vandal/Documents/apero/default/apero.bash.setup"
 
 # Power
 alias sdn='shutdown now'

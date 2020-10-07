@@ -5,6 +5,9 @@ else
     export PATH="$HOME/miniconda3/bin:$PATH"
 fi
 
+# Env var for mpi
+# OMPI_MCA_opal_cuda_support=true
+
 # Adapted from https://github.com/dfm/dotfiles and https://github.com/leouieda/dotfiles
 cenv() {
 read -r -d '' CENV_HELP <<-'EOF'
@@ -142,7 +145,7 @@ EOF
 
   # Set env name
   if [[ -z $envName ]]; then
-    envName=`sed -n -e 's/^name: //p' $envfile`
+    envName=`sed -n -e 's/^name: //p' "$envFile"`
   fi
 
   # Set env dir
@@ -224,7 +227,7 @@ EOF
     fi
     if [[ $fileExists = "y" ]]; then
       echo "Creating a new environment from: $envFile"
-      conda env create --name $envName --file $envFile
+      conda env create --file $envFile
     else
       echo "Creating a new environment with arguments: $@"
       conda create --name $envName pip $@

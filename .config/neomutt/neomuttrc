@@ -8,16 +8,18 @@ folder-hook 'udem' 'source ~/.config/neomutt/udem.muttrc'		   # School account h
 folder-hook 'personal' 'source ~/.config/neomutt/personal.muttrc'  # Personal account hook
 
 ### Folders ###
-set folder = ~/.mail							 # Mailboxes location
-set alias_file = "~/.config/neomutt/aliases"     # Alias file
+set folder = ~/.mail							     # Mailboxes location
+set alias_file = "~/.config/neomutt/aliases"         # Alias file
 source $alias_file
-named-mailboxes "UdeM" "+udem/Inbox"			 # School account
+named-mailboxes "UdeM" "+udem/Inbox"			     # School account
 named-mailboxes "  Sent" "=udem/Sent"
 named-mailboxes "  Drafts" "=udem/Drafts"
 named-mailboxes "  Trash" "=udem/Trash"
-named-mailboxes "  ASTRO" "=udem/ASTRO"			 # Old ASTRO mail
-named-mailboxes "  McGill" "=udem/McGill"		 # Old McGill mail
-named-mailboxes "Personal" "+personal/Inbox"     # Personal account
+named-mailboxes "  SPIRou Log" "=udem/SPIRou Log"    # SPIRou Logs
+named-mailboxes "  SPIRou CCFs" "=udem/SPIRou CCFs"  # SPIRou Logs
+named-mailboxes "  ASTRO" "=udem/ASTRO"			     # Old ASTRO mail
+named-mailboxes "  McGill" "=udem/McGill"		     # Old McGill mail
+named-mailboxes "Personal" "+personal/Inbox"         # Personal account
 named-mailboxes "  Sent" "=personal/Sent"
 named-mailboxes "  Drafts" "=personal/Drafts"
 named-mailboxes "  Junk" "=personal/Junk"
@@ -37,7 +39,7 @@ unset confirmappend      		   # Don't ask, just do
 set quit                 		   # Don't ask, just do
 set sort_alias = alias			   # Sort by alias name
 set reverse_alias = yes			   # Use alias personal name in index
-set sort = date					   # Sort mail by date
+set sort = reverse-date-received   # Sort mail by date, latest on top
 
 # Display formatting
 set date_format="%y-%m-%d %H:%M"
