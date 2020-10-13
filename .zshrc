@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Enable conda completion
+fpath+=$HOME/.zsh/conda-zsh-completion
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit
