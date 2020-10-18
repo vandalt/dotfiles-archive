@@ -202,7 +202,7 @@ EOF
   if [[ "$action" = "clean" ]]; then
     read "flag?Remove this environment ($envName)? [y/N]: "
     if [[ "$flag" = "y" ]] || [[ "$flag" = "Y" ]]; then
-      echo -n "Removing: $lockFile $prefix"
+      echo -n "Removing: $lockFile"
       # make sure no env active
       conda deactivate
       rm -rf "$lockFile $pipFile" 
@@ -297,7 +297,8 @@ EOF
   fi
 
   # Update config
-  conda env export --name $envName --from-history > $envFile
+  echo "name: $envName" > $envFile
+  conda env export --name "$envName" --from-history | sed '1d;/^$/d' | sed '$d' >> $envFile
   if [[ -f "$pipFile" ]]; then
     echo "  - pip:" >> $envFile
     echo "    - -r requirements.txt" >> $envFile
