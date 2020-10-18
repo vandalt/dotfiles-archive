@@ -250,6 +250,9 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-h> <C-w>h
 
+" Copy consistent with others
+nnoremap Y y$
+
 " Jupyter shortcuts
 autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
 autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
