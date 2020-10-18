@@ -143,6 +143,11 @@ EOF
     return 0
   fi
 
+  # Take dir from env File if available
+  if [[ ! -z "$envFile" ]]; then
+    envDir=`dirname $envFile`
+  fi
+
   # Make sure dir exists
   if [[ ! -d "$envDir" ]]; then
     mkdir -p $envDir
