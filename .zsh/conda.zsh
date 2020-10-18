@@ -304,6 +304,12 @@ EOF
     echo "    - -r requirements.txt" >> $envFile
   fi
   conda env export --name $envName > $lockFile
+
+  # Unset some things
+  envName=""
+  envDir=""
+  envFile=""
+  current=""
 }
 
 cdenv() {
