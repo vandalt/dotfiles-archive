@@ -218,6 +218,7 @@ bindsym $mod+Shift+grave exec $menu
 
 # App launchers
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $bin/floating $term
 bindsym $mod+i exec $browser
 bindsym $mod+m exec $mail
 bindsym $mod+Shift+m exec slack
