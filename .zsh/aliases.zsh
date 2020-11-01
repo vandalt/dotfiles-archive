@@ -48,10 +48,10 @@ alias icat="kitty +kitten icat"
 # Two dirs up
 alias ...="cd ../.."
 
-# Python dev
+# Python
 alias jlab='jupyter lab'
 alias jnote='jupyter notebook'
-alias aperoenv="cenv activate -n apero-env -f /home/vandal/Documents/apero-drs/setup/envs/apero-env-2020-06-03.yml; source /home/vandal/Documents/apero/default/apero.bash.setup"
+alias p='ipython'
 
 # Power
 alias sdn='shutdown now'
@@ -74,7 +74,6 @@ alias untar='tar -xvf'
 alias guntar='tar -xzvf'
 alias buntar='tar -xjvf'
 alias open='xdg-open'
-alias sc='screen'
 alias scr='screen -r'
 alias scs='screen -S'
 alias scls='screen -ls'

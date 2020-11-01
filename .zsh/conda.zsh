@@ -148,11 +148,6 @@ EOF
     envDir=`dirname $envFile`
   fi
 
-  # Make sure dir exists
-  if [[ ! -d "$envDir" ]]; then
-    mkdir -p $envDir
-  fi
-
   # Assign env files
   if [[ -z "$envFile" ]]; then
     envFile="$envDir/environment.yml"
@@ -242,6 +237,10 @@ EOF
     fi
   fi
 
+  # Make sure dir exists
+  if [[ ! -d "$envDir" ]]; then
+    mkdir -p $envDir
+  fi
 
   # All these other actions modify the env, so we use an if statement because we need to save the config at the very end
   if [[ "$action" = "create" ]]; then
