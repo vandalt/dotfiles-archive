@@ -16,9 +16,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('dense-analysis/ale')	    " Syntax
   call dein#add('nvie/vim-flake8')		    " formatting
 
-  " Jupyter (IPython) notebooks
-  call dein#add('szymonmaszke/vimpyter')
-
   " LaTeX
   call dein#add('lervag/vimtex')
 
@@ -118,7 +115,7 @@ autocmd FileType python set colorcolumn=80
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Auto pep8 check when saving (run with F7 to avois syntastic incomp)
-autocmd BufWritePost *.py call flake8#Flake8()
+" autocmd BufWritePost *.py call flake8#Flake8()
 
 " Theming and window style
 if exists('+termguicolors')
@@ -252,8 +249,3 @@ nnoremap <A-h> <C-w>h
 
 " Copy consistent with others
 nnoremap Y y$
-
-" Jupyter shortcuts
-autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
-autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
-autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
