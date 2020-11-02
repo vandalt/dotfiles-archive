@@ -1,1 +1,1 @@
-$HOME/Programs/topcat/topcat
+$HOME/Programs/topcat/topcat $@
