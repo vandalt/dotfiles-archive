@@ -2,3 +2,4 @@
 .config/onedrive/refresh_token
 .config/onedrive/resume_upload
 .dotfiles
+.private_dotfiles
