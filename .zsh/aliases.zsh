@@ -57,9 +57,6 @@ alias p='ipython'
 alias sdn='shutdown now'
 alias rbt='reboot'
 
-# Emails
-alias neomutt='cd ~/Downloads && neomutt'
-
 # Utils
 alias l='ls'
 alias sl='ls'

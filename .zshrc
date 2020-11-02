@@ -48,3 +48,6 @@ export QT_QPA_PLATFORMTHEME=gtk2
 # Firefox on wayland
 MOZ_ENABLE_WAYLAND=1
 export MOZ_ENABLE_WAYLAND
+
+# To customize prompt, run `p10k configure` or edit ~/.zsh/p10k.zsh.
+[[ ! -f ~/.zsh/p10k.zsh ]] || source ~/.zsh/p10k.zsh
