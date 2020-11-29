@@ -18,10 +18,10 @@ compinit
 source $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 # Source syntax highlighting
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Source autosuggestions
-source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Source all config files
 for config_file ($HOME/.zsh/*.*sh) source $config_file

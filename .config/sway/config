@@ -9,7 +9,7 @@ set $down j
 set $up k
 set $right l
 set $font Monospace 10
-set $background ~/Pictures/aurores/forest.jpg
+# set $background ~/Pictures/aurores/forest.jpg
 set $bin ~/.local/bin/sway
 set $out1 eDP-1
 set $out2 DP-2
@@ -92,16 +92,20 @@ focus_follows_mouse yes
 mouse_warping output
 
 # Set wallpaper for all monitors
-output * bg $background fill
+# output * bg $background fill
 
 # Monitors
+xwayland force scale 2
+exec xsettingsd
+
+
+# Setup monitor disposition and scaling
 output $out1 scale 2.0 
 output $out1 pos 0 0 res 3840 2160
 output $out2 scale 1.5
 output $out2 pos 1920 0 res 3840 2160
 output $out3 scale 1.5
 output $out3 pos 1920 0 res 3840 2160
-exec sh -c "swaymsg xwayland scale 2; echo Gdk/WindowScalingFactor 2 > ~/.config/xsettingsd/xsettingsd.conf; killall -HUP xsettingsd"
 
 # Toggle waybar
 bindsym $mod+Shift+i exec killall -SIGUSR1 waybar
