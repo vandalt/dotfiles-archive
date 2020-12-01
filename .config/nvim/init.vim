@@ -124,6 +124,7 @@ endif
 colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE "Transparent
 let g:airline_powerline_fonts = 1
+let g:airline_theme="minimalist"
 
 " Vim scripts
 au FileType vim setlocal
@@ -189,7 +190,8 @@ import sys
 import subprocess
 if 'CONDA_PREFIX' in os.environ:
   project_base_dir = os.environ['CONDA_PREFIX']
-  activate = os.path.join(project_base_dir, 'bin/activate')
+  # activate = os.path.join(project_base_dir, 'bin/activate')
+  activate = os.path.join('/home/vandal/miniconda3', 'bin/activate')
   subprocess.call(activate)
 elif 'VIRTUAL_ENV' in os.environ:
   project_base_dir = os.environ['VIRTUAL_ENV']
