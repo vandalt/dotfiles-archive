@@ -48,6 +48,9 @@ alias icat="kitty +kitten icat"
 # Two dirs up
 alias ...="cd ../.."
 
+# Java scaling
+alias topcat='topcat -Dsun.java2d.uiScale=2'
+
 # Python
 alias jlab='jupyter lab'
 alias jnote='jupyter notebook'
