@@ -231,9 +231,8 @@ map <C-n> :NERDTreeToggle<CR>
 map <A-f> :setlocal spell spelllang=fr<CR>
 map <A-e> :setlocal spell spelllang=en_ca<CR>
 
-" Easily scroll next window
-nnoremap <C-j> <C-w>p<C-e><C-w>p
-nnoremap <C-k> <C-w>p<C-y><C-w>p
+" Delete next in insert
+inoremap <C-d> <Del>
 
 " Disable automatic comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o

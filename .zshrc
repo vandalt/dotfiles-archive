@@ -49,7 +49,5 @@ export QT_QPA_PLATFORMTHEME=gtk2
 MOZ_ENABLE_WAYLAND=1
 export MOZ_ENABLE_WAYLAND
 
-export WLR_DRM_NO_MODIFIERS=1
-
 # To customize prompt, run `p10k configure` or edit ~/.zsh/p10k.zsh.
 [[ ! -f ~/.zsh/p10k.zsh ]] || source ~/.zsh/p10k.zsh
