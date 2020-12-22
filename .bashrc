@@ -34,7 +34,7 @@ TERM=xterm-color
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # For new terminal in same dir
-source /etc/profile.d/vte.sh
+# source /etc/profile.d/vte.sh
 
 # Alias for vim
 #alias vim='vimx'  # gvim terminal
@@ -56,3 +56,4 @@ alias onemonit='onedrive --monitor'
 #  POWERLINE_BASH_SELECT=1
 #  . /usr/share/powerline/bash/powerline.sh
 #fi
+alias apero="source $HOME/astro-dev/apero/default/apero.bash.setup"

@@ -296,7 +296,7 @@ EOF
       fi
     else
       echo "Installing: $@"
-      conda remove--name $envName $@
+      conda remove --name $envName $@
     fi
   fi
 

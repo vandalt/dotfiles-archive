@@ -47,6 +47,7 @@ if dein#load_state('~/.cache/dein')
   " Snippets
   call dein#add('SirVer/ultisnips')
   call dein#add('honza/vim-snippets')
+  call dein#add('heavenshell/vim-pydocstring', { 'do': 'make install' })
 
   " tpope plugins
   call dein#add('tpope/vim-surround')   " Surround text with quotes or brackets
@@ -118,11 +119,12 @@ au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " autocmd BufWritePost *.py call flake8#Flake8()
 
 " Theming and window style
+set termguicolors
 if exists('+termguicolors')
   set t_Co=256
 endif
 colorscheme dracula
-hi Normal guibg=NONE ctermbg=NONE "Transparent
+" hi Normal guibg=NONE ctermbg=NONE "Transparent
 let g:airline_powerline_fonts = 1
 let g:airline_theme="minimalist"
 
@@ -237,10 +239,15 @@ inoremap <C-d> <Del>
 " Disable automatic comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Snippets
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
+
+" Python docstrings
+let g:pydocstring_templates_path="~/.local/share/doqtemplates"
+let g:pydocstring_doq_path="~/.local/bin/doq"
 
 " Easy window switching
 nnoremap <A-j> <C-w>j
