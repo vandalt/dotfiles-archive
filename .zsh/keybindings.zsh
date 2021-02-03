@@ -63,7 +63,6 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 # Edit the current command line in $EDITOR
-# From https://github.com/dfm/dotfiles
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line

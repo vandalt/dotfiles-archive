@@ -8,7 +8,7 @@
 sync_dir = "~"
 # skip_file = "~*|.~*|*.tmp|Screenshot-*"
 # monitor_interval = "45"
-skip_dir = "Pictures/Storage|Documents/bpic/analysis/out"
+skip_dir = "Pictures/Storage|Documents/bpic/analysis/out|Documents/data-analysis/phy6795p"
 # log_dir = "/var/log/onedrive/"
 # drive_id = ""
 # upload_only = "false"
