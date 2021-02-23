@@ -67,13 +67,14 @@ if dein#load_state('~/.cache/dein')
   " Python development
   call dein#add('hynek/vim-python-pep8-indent')         " Better python indentation
   call dein#add('jeetsukumaran/vim-pythonsense')  " text objects and motions (]m, ]c, af/c)
+  call dein#add('jpalardy/vim-slime', { 'on_ft': 'python' })
+  call dein#add('hanschen/vim-ipython-cell', { 'on_ft': 'python' })
+  call dein#add('goerz/jupytext.vim')
 
 
   call dein#add('SirVer/ultisnips')
   call dein#add('honza/vim-snippets')
   call dein#add('heavenshell/vim-pydocstring', { 'do': 'make install' })
-  " call dein#add('ColinKennedy/vim-auto_docstring')
-
 
   " Add plugins above this block
   call dein#end()
@@ -97,9 +98,9 @@ set nowritebackup
 set updatetime=300
 set shortmess+=c
 
-" Color column 80
+" Color column 88 (using black formatting python)
 if exists("&colorcolumn")
-    set colorcolumn=80
+    set colorcolumn=89
 endif
 
 " Folding
@@ -165,10 +166,10 @@ nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <M-\> :TmuxNavigatePrevious<cr>
 
 " Resize windows
-nnoremap <C-j> <C-w>+
-nnoremap <C-k> <C-w>-
-nnoremap <C-l> <C-w>>
-nnoremap <C-h> <C-w><
+" nnoremap <C-j> <C-w>+
+" nnoremap <C-k> <C-w>-
+" nnoremap <C-l> <C-w>>
+" nnoremap <C-h> <C-w><
 
 " Navigate and move tabs
 map <leader>tn :tabnew<CR>
@@ -426,6 +427,10 @@ nvim_lsp.diagnosticls.setup {
         command = "black",
         args = { "--quiet", "-" }
       },
+      -- yapf = {
+      --   command = "yapf",
+      --   args = { "--quiet",}
+      -- },
       isort = {
         command = "isort",
         args = { "--quiet", "-" }
@@ -442,8 +447,8 @@ let g:vimtex_complete_recursive_bib = 1
 
 " " Snippets
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="<c-o>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:ultisnips_python_style = 'spinx'
 
@@ -452,3 +457,19 @@ nmap <silent> <c-i> <Plug>(pydocstring)
 let g:pydocstring_formatter = 'sphinx'
 let g:pydocstring_templates_path="~/.local/share/doqtemplates"
 let g:pydocstring_doq_path="~/.local/bin/doq"
+
+" Python cells
+let g:slime_target = "tmux"
+let g:slime_default_config = {
+            \ 'socket_name': get(split($TMUX, ','), 0),
+            \ 'target_pane': '{top-right}' }
+let g:slime_dont_ask_default = 1
+nnoremap <Leader>ii :IPythonCellExecuteCell<CR>
+nnoremap <Leader>iI :IPythonCellExecuteCellJump<CR>
+nnoremap <Leader>il :IPythonCellClear<CR>
+nnoremap <Leader>ir :IPythonCellRun<CR>
+nnoremap [c :IPythonCellPrevCell<CR>
+nnoremap ]c :IPythonCellNextCell<CR>
+
+" Jupyter notebooks
+let g:jupytext_fmt = 'py:percent'
