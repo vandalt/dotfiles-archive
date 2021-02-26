@@ -121,7 +121,7 @@ set smartindent  " Auto indent after a {
 " Search file
 set ignorecase             " Ignore case in searces and subs
 set smartcase              " When upper case in search, don't ignore
-nnoremap <buffer><CR> :nohlsearch<CR>
+nnoremap <leader>q :nohlsearch<CR>
 
 " Line numbers
 set number                 " Line numbers
