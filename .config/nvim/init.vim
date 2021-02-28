@@ -22,6 +22,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('kana/vim-textobj-entire')      " Entire buffer object with ae/ie
   call dein#add('sjl/gundo.vim')                " Show and navigate undo tree
   call dein#add('christoomey/vim-tmux-navigator')  " Easily navigate tmux and vim
+  call dein#add('vim-scripts/ReplaceWithRegister')  " Easily navigate tmux and vim
+  call dein#add('bkad/CamelCaseMotion')  " Navigate code variables
 
   " File navigation
   call dein#add('scrooloose/nerdtree')
@@ -100,7 +102,7 @@ set shortmess+=c
 
 " Color column 88 (using black formatting python)
 if exists("&colorcolumn")
-    set colorcolumn=89
+    set colorcolumn=80,89
 endif
 
 " Folding
@@ -212,8 +214,8 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Toggle some display options
-noremap <leader>n :set number!<CR>
-noremap <leader>l :set list!<CR>
+noremap <leader>ln :set number!<CR>
+noremap <leader>ll :set list!<CR>
 
 " Toggle paste mode
 map <leader>p :setlocal paste!<CR>
@@ -224,9 +226,9 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Write prose
 map <A-f> :setlocal spell! spelllang=fr<CR>
 map <A-e> :setlocal spell! spelllang=en_ca<CR>
-noremap <leader>w vasgq
-noremap <leader>W vipJ
 function Prose ()
+  noremap <leader>w vasgq
+  noremap <leader>W vipJ
   set formatoptions+=t
   set linebreak
   set wrap
@@ -291,7 +293,7 @@ let g:gundo_prefer_python3 = 1
 nmap <leader>u :GundoToggle<CR>
 
 " NERDTree (withautoclose)
-nmap <leader>e :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeToggle<CR>
 nmap <leader>f :NERDTreeFocus<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -420,6 +422,7 @@ nvim_lsp.diagnosticls.setup {
       },
     };
     formatFiletypes = {
+      -- python = {"black", "isort"}
       python = {"black", "isort"}
     };
     formatters = {
@@ -427,10 +430,10 @@ nvim_lsp.diagnosticls.setup {
         command = "black",
         args = { "--quiet", "-" }
       },
-      -- yapf = {
-      --   command = "yapf",
-      --   args = { "--quiet",}
-      -- },
+      yapf = {
+        command = "yapf",
+        args = { "--quiet",}
+      },
       isort = {
         command = "isort",
         args = { "--quiet", "-" }
@@ -473,3 +476,6 @@ nnoremap ]c :IPythonCellNextCell<CR>
 
 " Jupyter notebooks
 let g:jupytext_fmt = 'py:percent'
+
+" CamelCaseMotion
+let g:camelcasemotion_key = '<leader>'
