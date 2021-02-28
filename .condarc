@@ -2,6 +2,7 @@ channel_priorty: strict
 channels:
   - conda-forge
   - defaults
+  - http://ssb.stsci.edu/astroconda
 
 add_pip_as_python_dependency: true
 
