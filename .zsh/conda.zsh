@@ -205,7 +205,7 @@ EOF
       echo -n "Removing: $lockFile"
       # make sure no env active
       conda deactivate
-      rm -rf "$lockFile $pipFile" 
+      rm -rf "$lockFile $pipFile"
       conda remove --name $envName --all
       return 0
     elif [[ "$flag" = "n" ]] || [[ "$flag" = "N" ]]; then

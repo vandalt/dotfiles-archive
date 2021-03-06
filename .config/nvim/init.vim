@@ -24,6 +24,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('christoomey/vim-tmux-navigator')  " Easily navigate tmux and vim
   call dein#add('vim-scripts/ReplaceWithRegister')  " Easily navigate tmux and vim
   call dein#add('bkad/CamelCaseMotion')  " Navigate code variables
+  call dein#add('bling/vim-bufferline')
 
   " File navigation
   call dein#add('scrooloose/nerdtree')
@@ -112,9 +113,9 @@ set foldmethod=expr
 set foldlevel=99
 
 " Default indentation
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 set autoindent
 set smartindent  " Auto indent after a {
@@ -140,7 +141,7 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
-set viminfo^=%  " Remember buffer info
+" set viminfo^=%  " Remember buffer info
 
 " Command mode completion
 set wildmode=longest:full                                   " Complete only common part in wildmenu
@@ -180,6 +181,9 @@ map <leader>tc :tabclose<CR>
 map <leader>tm :tabmove<CR>
 map <leader>]  :tabnext<CR>
 map <leader>[  :tabprev<CR>
+
+nmap <C-p> :bprev<CR>
+nmap <C-n> :bnext<CR>
 
 " Yank consistent with C and D
 nnoremap Y y$
@@ -248,7 +252,6 @@ endfunction
 " ============================================================================
 " Color scheme
 " ============================================================================
-let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1  " Use powerline fonts
 syntax on
 set termguicolors
@@ -298,8 +301,9 @@ nmap <leader>f :NERDTreeFocus<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Vista tagbar/structure bar
-" let g:vista_default_executive = 'coc'
-nmap <leader>b :Vista!!<CR>
+let g:vista_default_executive = 'nvim_lsp'
+let g:vista_sidebar_position = 'vertical botright'
+nmap <leader>v :Vista!!<CR>
 " nmap <leader>vc :Vista ctags<CR>
 
 " Formatting
@@ -422,7 +426,7 @@ nvim_lsp.diagnosticls.setup {
       },
     };
     formatFiletypes = {
-      -- python = {"black", "isort"}
+      -- python = {"yapf", "isort"}
       python = {"black", "isort"}
     };
     formatters = {
@@ -465,7 +469,7 @@ let g:pydocstring_doq_path="~/.local/bin/doq"
 let g:slime_target = "tmux"
 let g:slime_default_config = {
             \ 'socket_name': get(split($TMUX, ','), 0),
-            \ 'target_pane': '{top-right}' }
+            \ 'target_pane': '{bottom-right}' }
 let g:slime_dont_ask_default = 1
 nnoremap <Leader>ii :IPythonCellExecuteCell<CR>
 nnoremap <Leader>iI :IPythonCellExecuteCellJump<CR>
@@ -479,3 +483,10 @@ let g:jupytext_fmt = 'py:percent'
 
 " CamelCaseMotion
 let g:camelcasemotion_key = '<leader>'
+
+" Airline-bufferline integration
+let g:bufferline_echo = 0
+let g:airline#extensions#bufferline#enabled = 0
+let g:airline#extensions#bufferline#overwrite_variables = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
