@@ -13,7 +13,8 @@ fi
 alias taskl='task +OVERDUE'
 alias taskn='task +next'
 alias taskg='git -C ~/.task pull'
-alias taskp='git -C ~/.task commit -a -m "add latest tasks"'
+alias taskc='git -C ~/.task commit -a -m "add latest tasks"'
+alias taskp='git -C ~/.task push'
 
 # Use neovim
 alias v='nvim'
