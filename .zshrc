@@ -27,13 +27,13 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 for config_file ($HOME/.zsh/*.*sh) source $config_file
 
 # Must be after vi-mode set in config files
-source /usr/share/fzf/shell/key-bindings.zsh
+# source /usr/share/fzf/shell/key-bindings.zsh
 # source /usr/share/fzf/completion.zsh
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="/home/vandal/Programs/texlab/target/release:$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
 if ! [[ "$PATH" =~ "/usr/bin/core_perl:" ]]
@@ -53,5 +53,6 @@ export QT_QPA_PLATFORMTHEME=gtk2
 MOZ_ENABLE_WAYLAND=1
 export MOZ_ENABLE_WAYLAND
 
+export EDITOR="nvim"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

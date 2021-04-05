@@ -9,6 +9,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# Taskwarrior aliases
+alias taskl='task +OVERDUE'
+alias taskn='task +next'
+alias taskg='git -C ~/.task pull'
+alias taskp='git -C ~/.task commit -a -m "add latest tasks"'
+
 # Use neovim
 alias v='nvim'
 alias vim='nvim'
