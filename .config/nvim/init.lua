@@ -60,12 +60,12 @@ require('packer').startup(function()
   use {'reedes/vim-textobj-sentence', requires = 'kana/vim-textobj-user'}
   use 'junegunn/goyo.vim'  -- Distraction-free writing
   use 'ferrine/md-img-paste.vim'  -- Paste images automatically with md files
+  use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
 
   -- Theming plugins
   use 'joshdick/onedark.vim'
   use {'dracula/vim', as = 'dracula'}
   use 'altercation/vim-colors-solarized'
-  use 'tomasiser/vim-code-dark'
   use 'itchyny/lightline.vim'
 
   -- LSP and lua
@@ -187,16 +187,15 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':nohlsearch<CR>', {noremap = true})
 ------------------------------------------------------------
 cmd [[syntax enable]]
 vim.o.termguicolors = true
-
--- Gruvbox options
+vim.g.onedark_terminal_italics = true
 local lsp_highlight_dark = '#504945'
 local lsp_highlight_light = '#d5c4a1'
 -- local lsp_highlight_dark = 'Grey'
 -- local lsp_highlight_light = 'Grey'
-cmd [[colorscheme codedark]]
+cmd [[colorscheme onedark]]
 
 -- Status bar
-vim.g.lightline = { colorscheme = 'codedark';
+vim.g.lightline = { colorscheme = 'onedark';
       active = { left = { { 'mode', 'paste' },
                           { 'gitbranch', 'readonly', 'filename', 'modified' }
                         };
@@ -448,3 +447,15 @@ vim.api.nvim_set_keymap('n', '<leader>vf', ':Vista focus<CR>', {})
 
 -- Paste images in markdown with <leader>p
 cmd [[autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>]]
+
+-- Clearer gutter signs (note: codedark broke these)
+-- require('gitsigns').setup()
+require('gitsigns').setup({
+  signs = {
+    add          = {hl = 'GitGutterAdd'   , text = '+'},
+    change       = {hl = 'GitGutterChange', text = '~'},
+    delete       = {hl = 'GitGutterDelete', text = '_'},
+    topdelete    = {hl = 'GitGutterDelete', text = '‾'},
+    changedelete = {hl = 'GitGutterChange', text = '~'},
+  }
+})
