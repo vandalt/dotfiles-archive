@@ -56,4 +56,4 @@ alias onemonit='onedrive --monitor'
 #  POWERLINE_BASH_SELECT=1
 #  . /usr/share/powerline/bash/powerline.sh
 #fi
-alias apero="source $HOME/apero/default/apero.bash.setup"
+alias apero="source /home/vandal/apero/default/apero.bash.setup"
