@@ -56,7 +56,7 @@ alias icat="kitty +kitten icat"
 alias ...="cd ../.."
 
 # Java scaling
-alias topcat='topcat -Dsun.java2d.uiScale=2'
+alias topcat='_JAVA_AWT_WM_NONREPARENTING=1 topcat -Dsun.java2d.uiScale=2'
 
 # Python
 alias jlab='jupyter lab'

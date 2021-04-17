@@ -9,7 +9,7 @@ set $down j
 set $up k
 set $right l
 set $font Monospace 10
-set $background ~/Pictures/aurores/forest.jpg
+set $background ~/Pictures/aurores/lake.jpg
 set $bin ~/.local/bin/sway
 set $out1 eDP-1
 set $out2 DP-2
@@ -100,24 +100,24 @@ xwayland force scale 2
 exec xsettingsd
 
 # Setup monitor disposition and scaling
-output $out1 scale 2.0 
+output $out1 scale 2.0
 output $out1 pos 0 0 res 3840 2160
 output $out2 scale 1.5
 output $out2 pos 1920 0 res 3840 2160
 output $out3 scale 1.5
 output $out3 pos 1920 0 res 3840 2160
 #profile {
-#    output $out1 scale 2.0 
+#    output $out1 scale 2.0
 #    output $out1 pos 0 0 res 3840 2160
 #}
 #profile {
-#    output $out1 scale 2.0 
+#    output $out1 scale 2.0
 #    output $out1 pos 0 0 res 3840 2160
 #    output $out2 scale 1.5
 #    output $out2 pos 1920 0 res 3840 2160
 #}
 #profile {
-#    output $out1 scale 2.0 
+#    output $out1 scale 2.0
 #    output $out1 pos 0 0 res 3840 2160
 #    output $out3 scale 1.5
 #    output $out3 pos 1920 0 res 3840 2160
@@ -127,8 +127,8 @@ output $out3 pos 1920 0 res 3840 2160
 bindsym $mod+Shift+i exec killall -SIGUSR1 waybar
 
 bar {
-	
-	swaybar_command waybar
+
+    swaybar_command waybar
 
     # position top
 
@@ -161,7 +161,7 @@ smart_gaps on
 gaps inner 5
 
 # Borders and gaps for specific workpaces
-workspace $ws1 gaps inner 13 
+workspace $ws1 gaps inner 13
 workspace $ws8 gaps inner 13
 
 #######################
@@ -203,13 +203,18 @@ exec swayidle -w \
 
 # Workspaces
 assign [app_id="firefox"] $ws2
-assign [app_id="Chromium"] $ws2
+# assign [app_id="Chromium"] $ws2
 
 # Floating
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="blueberry.py"] floating enable
+for_window [app_id="gnome-calculator"] floating enable
 for_window [class="Safeeyes"] floating enable
 for_window [class="zoom"] floating enable
+for_window [class="jetbrains-pycharm" title="Welcome to PyCharm"] floating enable
+for_window [class="Matplotlib"] floating enable
+for_window [class="matplotlib"] floating enable
+for_window [class=" "] floating enable
 for_window [app_id="Alacritty"] floating enable
 
 # Workspaces on big screen

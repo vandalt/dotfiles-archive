@@ -10,7 +10,6 @@ function csview {
 
 # Customize jupyter lab
 function extjlab {
-  # jupyter labextension install @karosc/jupyterlab_dracula
-  jupyter labextension install @vandalt/jupyterlab_dracula
+  jupyter labextension install @karosc/jupyterlab_dracula
   jupyter labextension install @axlair/jupyterlab_vim
 }

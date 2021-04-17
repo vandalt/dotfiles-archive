@@ -2,7 +2,6 @@
 ------------------------------------------------------------
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local execute = vim.api.nvim_command
-local cmd = vim.cmd
 
 
 -- Plugins -------------------------------------------------
@@ -15,7 +14,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Required if loaded as optional
-cmd [[packadd packer.nvim]]
+vim.cmd [[packadd packer.nvim]]
 
 -- Load packages in main file for now
 local use = require('packer').use
@@ -43,7 +42,8 @@ require('packer').startup(function()
   use 'vim-scripts/argtextobj.vim'  -- Argument text object
   use 'jeetsukumaran/vim-pythonsense'  -- Text objects and motions for Python
   use 'kana/vim-textobj-user'  -- Below works only if I put this here
-  use {'kana/vim-textobj-entire', requires = 'kana/vim-textobj-user'}
+  use {'kana/vim-textobj-entire', opt = true, requires = 'kana/vim-textobj-user', setup = 'vim.g.textobj_entire_no_default_key_mappings = true'}
+  use 'rbonvall/vim-textobj-latex'
   use 'michaeljsmith/vim-indent-object'  -- Indent text object
   use 'vim-scripts/ReplaceWithRegister'  -- Replace text object with register
   use 'bkad/CamelCaseMotion'  -- Camel/sneak case motions (w, b, e)
@@ -100,15 +100,16 @@ vim.o.smartcase = true
 
 -- Line numbers
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Color column at 80
 vim.wo.colorcolumn = "80"
 
 -- Enable filetype plugin
-cmd [[filetype plugin on]]
+vim.cmd [[filetype plugin on]]
 
 -- Remove trailing spaces
-cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
+vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
 
 -- Completion in wildmode
 local wignorelist = {
@@ -146,9 +147,6 @@ vim.api.nvim_set_keymap("n", "<M-\\>", ":TmuxNavigatePrevious<CR>", {noremap = t
 -- Yank consistent with C and D
 vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
--- Delete next in insert mode
-vim.api.nvim_set_keymap("i", "<C-d>", "<Del>", {noremap = true})
-
 -- Move line in up or down file
 vim.api.nvim_set_keymap('n', '<C-j>', ':m .+1<CR>==', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', ':m .-2<CR>==', {noremap = true})
@@ -183,7 +181,7 @@ vim.api.nvim_set_keymap('n', '<leader>ln', ':set number!<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>ll', ':set list!<CR>', {noremap = true})
 
 -- Toggle paste mode
-vim.api.nvim_set_keymap('n', '<leader>p', ':setlocal paste!<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>pp', ':setlocal paste!<CR>', {})
 
 -- Switch CWD to the directory of the open buffer
 vim.api.nvim_set_keymap('n', '<leader>cd', ':cd %:p:h<cr>:pwd<cr>', {})
@@ -193,14 +191,14 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':nohlsearch<CR>', {noremap = true})
 
 -- Color scheme --------------------------------------------
 ------------------------------------------------------------
-cmd [[syntax enable]]
+vim.cmd [[syntax enable]]
 vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = true
+-- vim.g.onedark_terminal_italics = true
 local lsp_highlight_dark = '#504945'
 local lsp_highlight_light = '#d5c4a1'
 -- local lsp_highlight_dark = 'Grey'
 -- local lsp_highlight_light = 'Grey'
-cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme onedark]]
 
 -- Status bar
 vim.g.lightline = { colorscheme = 'onedark';
@@ -212,7 +210,7 @@ vim.g.lightline = { colorscheme = 'onedark';
 }
 
 -- Function from solarized plugin to change background and theme
-cmd [[call togglebg#map("<F5>")]]
+vim.cmd [[call togglebg#map("<F5>")]]
 
 -- Prose----------------------------------------------------
 ------------------------------------------------------------
@@ -241,9 +239,9 @@ function Prose(bufnr)
   map('v', 'k', 'gk', {noremap = true})
 end
 
-cmd [[autocmd FileType tex,plaintex lua Prose()]]
-cmd [[autocmd BufNewFile,BufRead *.txt lua Prose()]]
-cmd [[autocmd BufNewFile,BufRead *.md lua Prose()]]
+vim.cmd [[autocmd FileType tex,plaintex lua Prose()]]
+vim.cmd [[autocmd BufNewFile,BufRead *.txt lua Prose()]]
+vim.cmd [[autocmd BufNewFile,BufRead *.md lua Prose()]]
 
 -- LSP configuration ---------------------------------------
 ------------------------------------------------------------
@@ -256,9 +254,9 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>fa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -266,7 +264,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>fl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -383,9 +381,9 @@ nvim_lsp.texlab.setup{
     latex = {
       rootDirectory = ".",
       build = {
-        -- pvc  is for "preview continusly"
-        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc" },
         executable = "latexmk",
+        -- pvc  is for "preview continusly"
+        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc", "-xelatex" },
         forwardSearchAfter = true,
         onSave = true
       },
@@ -398,8 +396,13 @@ nvim_lsp.texlab.setup{
   }
 }
 
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = vim.fn.expand('~/aur/lua-language-server/src/lua-language-server')
+local sumneko_binary = "lua-language-server"
+
 require('nlua.lsp.nvim').setup(nvim_lsp, {
   on_attach = on_attach,
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
 })
 
 -- Autocomplete with compe
@@ -432,15 +435,24 @@ require'compe'.setup {
 -- Options per filetype ------------------------------------
 ------------------------------------------------------------
 -- Python: always unix fileformat
-cmd [[autocmd BufNewFile, BufRead *.py set fileformat=unix]]
+vim.cmd [[autocmd BufNewFile, BufRead *.py set fileformat=unix]]
 
 -- Options for plugins  ------------------------------------
 ------------------------------------------------------------
 -- Prefix key for CamelCaseMotion
 vim.g.camelcasemotion_key = '<leader>'
 
+-- Entire buffer (e is for latex envs)
+vim.api.nvim_set_keymap('o', 'ag', '<Plug>(textobj-entire-a)', {})
+vim.api.nvim_set_keymap('o', 'ig', '<Plug>(textobj-entire-i)', {})
+vim.api.nvim_set_keymap('v', 'ag', '<Plug>(textobj-entire-a)', {})
+vim.api.nvim_set_keymap('v', 'ig', '<Plug>(textobj-entire-i)', {})
+
+
 -- Sneak
--- cmd [[let g:sneak#label = 1]]  -- s matches have labels for quick navigation
+-- vim.cmd [[let g:sneak#label = 1]]  -- s matches have labels for quick navigation
+vim.api.nvim_set_keymap('', '<leader>s', '<Plug>Sneak_s', {})
+vim.api.nvim_set_keymap('', '<leader>S', '<Plug>Sneak_S', {})
 vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
 vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
 vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
@@ -454,7 +466,7 @@ vim.api.nvim_set_keymap('n', '<leader>vv', ':Vista!!<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>vf', ':Vista focus<CR>', {})
 
 -- Paste images in markdown with <leader>p
-cmd [[autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>]]
+vim.cmd [[autocmd FileType markdown nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>]]
 
 -- Clearer gutter signs (note: codedark broke these)
 -- require('gitsigns').setup()
@@ -487,6 +499,9 @@ vim.g.iron_map_extended = 0
 vim.api.nvim_set_keymap('n', '<leader>x', 'ctrah]h', {})
 
 -- Wiki config
+-- vim.g.vim_markdown_auto_insert_bullets = true
+-- vim.g.vim_markdown_new_list_item_indent = 0
+-- vim.g.vimwiki_global_ext = 0
 vim.g.vimwiki_list = {{path = '~/Documents/notes/',
                        syntax = 'markdown',
                        ext = '.md'}}

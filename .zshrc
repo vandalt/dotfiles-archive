@@ -5,8 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 # Enable conda completion
+# fpath+=$HOME/.zsh/pyenv-zsh-comp
 fpath+=$HOME/.zsh/conda-zsh-completion
+fpath+=~/.zfunc
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
@@ -15,13 +21,13 @@ compinit
 # End of lines added by compinstall
 
 # Source Powerlevel10k
-source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Source syntax highlighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Source autosuggestions
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Source all config files
 for config_file ($HOME/.zsh/*.*sh) source $config_file
@@ -46,6 +52,7 @@ export PATH
 # QT apps
 # export QT_QPA_PLATFORM=wayland
 export QT_QPA_PLATFORMTHEME=gtk2
+# export QT_STYLE_OVERRIDE=adwaita
 # export QT_QPA_PLATFORMTHEME=wayland-egl
 # export QT_WAYLAND_FORCE_DPI=96
 
@@ -56,3 +63,10 @@ export MOZ_ENABLE_WAYLAND
 export EDITOR="nvim"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+
+export PATH="$HOME/.poetry/bin:$PATH"
