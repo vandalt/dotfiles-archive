@@ -51,7 +51,7 @@ export PATH
 
 # QT apps
 # export QT_QPA_PLATFORM=wayland
-export QT_QPA_PLATFORMTHEME=gtk2
+# export QT_QPA_PLATFORMTHEME=gtk2
 # export QT_STYLE_OVERRIDE=adwaita
 # export QT_QPA_PLATFORMTHEME=wayland-egl
 # export QT_WAYLAND_FORCE_DPI=96

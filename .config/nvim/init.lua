@@ -102,8 +102,8 @@ vim.o.smartcase = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Color column at 80
-vim.wo.colorcolumn = "80"
+-- Color column at 80, 89
+vim.wo.colorcolumn = "80,89"
 
 -- Enable filetype plugin
 vim.cmd [[filetype plugin on]]
@@ -355,8 +355,8 @@ nvim_lsp.diagnosticls.setup {
       },
     };
     formatFiletypes = {
-      python = {"yapf", "isort"}
-      -- python = {"black", "isort"}
+      -- python = {"yapf", "isort"}
+      python = {"black", "isort"}
     };
     formatters = {
       black = {
@@ -388,8 +388,10 @@ nvim_lsp.texlab.setup{
         onSave = true
       },
       forwardSearch = {
-        executable = "zathura",
-        args = {"--synctex-forward", "%l:1:%f", "%p"},
+        -- executable = "zathura",
+        -- args = {"--synctex-forward", "%l:1:%f", "%p"},
+        execute = "evince-synctex",
+        args = {"-f", "%l", "%p", "\"code -g %f:%l\""},
         onSave = true
       }
     }
