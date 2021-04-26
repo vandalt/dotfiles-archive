@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=ds9
+Name=SAOImageDS9
 Comment=An astronomical imaging and data visualization application
 TryExec=/home/vandal/programs/ds9/ds9
 Exec=/home/vandal/programs/ds9/ds9 %F
