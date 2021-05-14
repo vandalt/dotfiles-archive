@@ -9,6 +9,14 @@ fi
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
+export MKL_DYNAMIC=FALSE
+export MKL_CBWR=COMPATIBLE
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+
 # Enable conda completion
 # fpath+=$HOME/.zsh/pyenv-zsh-comp
 fpath+=$HOME/.zsh/conda-zsh-completion
@@ -21,13 +29,13 @@ compinit
 # End of lines added by compinstall
 
 # Source Powerlevel10k
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 # Source syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Source autosuggestions
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Source all config files
 for config_file ($HOME/.zsh/*.*sh) source $config_file
@@ -60,13 +68,15 @@ export PATH
 MOZ_ENABLE_WAYLAND=1
 export MOZ_ENABLE_WAYLAND
 
-export EDITOR="nvim"
+export EDITOR="vim"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+alias luamake=/home/vandal/programs/lua-language-server/3rd/luamake/luamake
+
 if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
 fi
-
 
 export PATH="$HOME/.poetry/bin:$PATH"

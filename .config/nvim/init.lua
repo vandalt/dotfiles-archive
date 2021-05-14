@@ -3,7 +3,6 @@
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local execute = vim.api.nvim_command
 
-
 -- Plugins -------------------------------------------------
 ------------------------------------------------------------
 -- Make sure packer is installed as optional, change opt to start for automatic
@@ -30,11 +29,12 @@ require('packer').startup(function()
   use 'tpope/vim-eunuch'  -- Enhanced unix shell commands
   use 'tpope/vim-unimpaired'  -- "Paired" commands with '[' and ']'
   use 'tpope/vim-sleuth'  -- Heuristically set indentation
+  use 'tpope/vim-vinegar'
   use 'bfredl/nvim-luadev'  -- Scratch buffer with lua output (and commands to run lines)
   use 'AndrewRadev/splitjoin.vim'  -- Convert between multi-line and single-line statements
   use 'ryanoasis/vim-devicons'  -- Nice icons in vim
   use 'justinmk/vim-gtfo'  -- Go to terminal (got) or file manager (gof)
-  use 'justinmk/vim-dirvish'  -- Alternative directory navigation
+  -- use 'justinmk/vim-dirvish'  -- Alternative directory navigation
   use 'christoomey/vim-tmux-navigator'  -- Navigate vim and tmux with same bindings
   use 'tommcdo/vim-exchange'  -- Exchange text objects with cx/cxx
   use {'junegunn/gv.vim', requires = 'tpope/vim-fugitive'}  -- Navigate commits
@@ -61,8 +61,10 @@ require('packer').startup(function()
   use 'junegunn/goyo.vim'  -- Distraction-free writing
   use 'ferrine/md-img-paste.vim'  -- Paste images automatically with md files
   use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
+  use {'nvim-telescope/telescope.nvim',
+       requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzy-native.nvim'}
+     }
   use 'vimwiki/vimwiki'  -- Note-taking with vimwiki
-  use {'tools-life/taskwiki', requires = 'vimwiki/vimwiki'}  -- Taswarrior in vimwiki
   use 'vim-scripts/AnsiEsc.vim'
   use 'goerz/jupytext.vim'  -- Convert and open jupyter notebooks
   use 'GCBallesteros/vim-textobj-hydrogen'
@@ -72,12 +74,15 @@ require('packer').startup(function()
   use 'joshdick/onedark.vim'
   use {'dracula/vim', as = 'dracula'}
   use 'altercation/vim-colors-solarized'
+  use 'morhetz/gruvbox'
   use 'itchyny/lightline.vim'
 
   -- LSP and lua
   use 'neovim/nvim-lspconfig'
   use 'tjdevries/nlua.nvim'
   use 'hrsh7th/nvim-compe'
+
+  use {'kkoomen/vim-doge', run = ':call doge#install()'}
 
 end)
 
@@ -108,6 +113,9 @@ vim.wo.colorcolumn = "80,89"
 -- Enable filetype plugin
 vim.cmd [[filetype plugin on]]
 
+-- Indendation when vim-sleuth doesn't do what I want
+vim.cmd [[autocmd Filetype cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
+
 -- Remove trailing spaces
 vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
 
@@ -120,6 +128,9 @@ local wignorelist = {
 }
 vim.o.wildmode = 'longest:full'
 vim.o.wildignore = vim.o.wildignore..table.concat(wignorelist, ",")
+
+-- Hide dotfiles
+vim.g.netrw_list_hide = '\\(^\\|\\s\\s\\)\\zs\\.\\S\\+'
 
 -- Highlighted yank
 vim.api.nvim_exec([[
@@ -198,10 +209,10 @@ local lsp_highlight_dark = '#504945'
 local lsp_highlight_light = '#d5c4a1'
 -- local lsp_highlight_dark = 'Grey'
 -- local lsp_highlight_light = 'Grey'
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme gruvbox]]
 
 -- Status bar
-vim.g.lightline = { colorscheme = 'onedark';
+vim.g.lightline = { colorscheme = 'gruvbox';
       active = { left = { { 'mode', 'paste' },
                           { 'gitbranch', 'readonly', 'filename', 'modified' }
                         };
@@ -265,11 +276,20 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+  if client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("v", "<leader>ff", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -398,9 +418,11 @@ nvim_lsp.texlab.setup{
   }
 }
 
+nvim_lsp.ccls.setup{on_attach = on_attach}
+
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.expand('~/aur/lua-language-server/src/lua-language-server')
-local sumneko_binary = "lua-language-server"
+local sumneko_root_path = vim.fn.expand('~/programs/lua-language-server')
+local sumneko_binary = sumneko_root_path .. "/bin/Linux/" .. "lua-language-server"
 
 require('nlua.lsp.nvim').setup(nvim_lsp, {
   on_attach = on_attach,
@@ -433,6 +455,7 @@ require'compe'.setup {
     vsnip = true;
   };
 }
+vim.api.nvim_set_keymap('i', '<CR>', "compe#confirm('<CR>')", {noremap = true, expr = true, silent = true})
 
 -- Options per filetype ------------------------------------
 ------------------------------------------------------------
@@ -498,12 +521,20 @@ iron.core.set_config {
 vim.g.iron_map_extended = 0
 
 -- Use mix of iron and hydrogen cell textobj to execute cell (note: ih is broken)
+vim.api.nvim_set_keymap('n', '<leader>ir', ':IronRepl<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>if', ':IronFocus<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>x', 'ctrah]h', {})
 
 -- Wiki config
 -- vim.g.vim_markdown_auto_insert_bullets = true
 -- vim.g.vim_markdown_new_list_item_indent = 0
 -- vim.g.vimwiki_global_ext = 0
-vim.g.vimwiki_list = {{path = '~/Documents/notes/',
+vim.g.vimwiki_list = {{path = '~/perso/notes/',
                        syntax = 'markdown',
                        ext = '.md'}}
+
+require('telescope').load_extension('fzy_native')
+
+-- python docstring types
+vim.g.doge_doc_standard_python = 'sphinx'
+

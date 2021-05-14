@@ -38,7 +38,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Alias for vim
 #alias vim='vimx'  # gvim terminal
-alias vim='nvim'  # neovim
+# alias vim='nvim'  # neovim
 
 
 # Alias for conda astro
