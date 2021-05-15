@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # From https://github.com/Synthetica9/sway-floating/blob/master/floating
+# Not working with alacritty right now
 
 $@ &
 pid=$!

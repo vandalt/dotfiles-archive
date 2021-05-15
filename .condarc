@@ -18,7 +18,6 @@ create_default_packages:
   - yapf
   - flake8
   - pyflakes
-  - pynvim
   - isort
   - conda-build
   - "libblas=*=*mkl"

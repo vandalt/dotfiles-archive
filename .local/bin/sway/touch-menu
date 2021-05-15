@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Touch menu for sway in tablet mode, using rofi
+
 CLOSE='  Close'
 IFS=
 MENU=(

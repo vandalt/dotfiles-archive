@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Toggle waybar for tablet (touch) vs desktop mode
+
 if [ "$1" = "" ]; then
 	echo "usage: $0 <cmd>"
 	echo ""
