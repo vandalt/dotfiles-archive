@@ -10,7 +10,7 @@ alias onesync='onedrive --synchronize'
 alias oneresync='onedrive --synchronize --resync'
 alias onemonit='onedrive --monitor'
 
-# Sync forever. Useful when onesync keeps breaking
+# Sync forever. Useful when onesync keeps breaking and have to update a lot of files
 infsync() {
   while :
   do

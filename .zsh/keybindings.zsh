@@ -10,8 +10,8 @@ bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey '^f' forward-char
 bindkey '^b' backward-char
-bindkey '^p' up-line-or-history
-bindkey '^n' down-line-or-history
+bindkey '^p' up-line-or-search
+bindkey '^n' down-line-or-search
 bindkey '^d' delete-char-or-list
 bindkey '^h' backward-delete-char
 bindkey '^[d' kill-word

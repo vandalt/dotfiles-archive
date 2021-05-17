@@ -323,11 +323,6 @@ cdenv() {
   con
 }
 
-coff() {
-  # Deativate current env
-  conda deactivate
-}
-
 con() {
   # Function to activate env of project (take name from file)
   envName=`sed -n -e 's/^name: //p' ./env/environment.yml`
