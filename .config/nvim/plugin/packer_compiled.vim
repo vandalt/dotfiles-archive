@@ -235,6 +235,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-matchit"
   },
+  ["vim-maximize"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-maximize"
+  },
   ["vim-python-pep8-indent"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-python-pep8-indent"
@@ -291,6 +295,10 @@ _G.packer_plugins = {
   ["vim-vinegar"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-vinegar"
+  },
+  vimspector = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vimspector"
   },
   vimwiki = {
     loaded = true,

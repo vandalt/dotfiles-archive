@@ -29,7 +29,7 @@ set $pen "1386:20963:Wacom_HID_51E3_Pen"
 set $out1 eDP-1
 set $out2 'Unknown ASUS VG289 0x00005935'
 # Screen lock
-set $lock 'swaylock -f --indicator --clock --timestr "%H:%M" --image $background --effect-vignette 0.2:0.2'
+set $lock swaylock -f -e -F --indicator --clock --timestr "%H:%M" --image $background --effect-vignette 0.2:0.2
 # Screenshot
 set $screenshot grim ~/Pictures/Screenshot-$(date +"%Y-%m-%d-%H-%M-%S").png
 set $areashot slurp | grim -g - ~/Pictures/Screenshot-$(date +"%Y-%m-%d-%H-%M-%S").png
@@ -57,8 +57,12 @@ output * bg $background fill
 output $out1 pos 0 0 res 3840 2160 scale 2.0
 output $out2 scale 1.5 pos 1920 0 res 3840 2160
 
-### Idle configuration
+### Run at startup
 #
+#
+exec $bin/gstep start
+#
+exec mako --default-timeout 2500
 # Lock after 5 minutes, turn off displays after 10 minutes, lock before sleep
 exec swayidle -w \
 	timeout 300 '$lock' \
@@ -104,6 +108,14 @@ smart_borders on
 smart_gaps on
 gaps inner 5
 
+# Floating windows
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="blueberry.py"] floating enable
+for_window [app_id="galculator"] floating enable
+for_window [app_id="imv"] floating enable
+for_window [app_id="zoom"] floating enable
+for_window [app_id="python3" title="Figure *"] floating enable
+for_window [class="jetbrains-pycharm" title="Welcome to PyCharm"] floating enable
 
 ### Key bindings
 #
@@ -194,6 +206,9 @@ gaps inner 5
     bindsym $mod+bracketleft move workspace to output left
     # Toggle between two latest workspaces
     bindsym $mod+Tab workspace back_and_forth
+    # Next and previous workspace
+    bindsym $mod+p exec swaymsg -t command workspace prev_on_output
+    bindsym $mod+n exec swaymsg -t command workspace next_on_output
 #
 # Layout stuff:
 #

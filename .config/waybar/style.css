@@ -139,7 +139,7 @@ label:focus {
 
 #cpu {
     /* background-color: #2ecc71; */
-    color: #2ecc71;
+    color: #36eb83;
     /* color: #000000; */
 }
 
@@ -192,9 +192,9 @@ label:focus {
     color: #eb4d4b;
 }
 
-#tray {
-    background-color: #2980b9;
-}
+/* #tray { */
+/*     background-color: #2980b9; */
+/* } */
 
 #idle_inhibitor {
     /* background-color: #2d3436; */

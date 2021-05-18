@@ -12,7 +12,11 @@ fi
 # Use neovim
 alias v='nvim'
 alias vim='nvim'
+
+# Config files I access often
+alias cconf='nvim ~/.config/'
 alias cnvim='nvim ~/.config/nvim/init.lua'
+alias csway='nvim ~/.config/sway/config'
 
 # Git dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -40,7 +44,8 @@ alias pcpsh='pconfig push'
 alias ...="cd ../.."
 
 # Java scaling
-alias topcat='_JAVA_AWT_WM_NONREPARENTING=1 topcat -Dsun.java2d.uiScale=2'
+alias topcat='_JAVA_AWT_WM_NONREPARENTING=1 topcat'  # -Dsun.java2d.uiScale=2'
+alias jmol='_JAVA_AWT_WM_NONREPARENTING=1 jmol'  # -Dsun.java2d.uiScale=2'
 
 # Python
 alias jlab='jupyter lab'
@@ -48,6 +53,10 @@ alias p='ipython'
 
 # Power
 alias sdn='shutdown now'
+
+# Starting chromium/electron in wayland
+alias code-insiders='code-insiders --enable-features=UseOzonePlatform --ozone-platform=wayland'
+alias code='code --enable-features=UseOzonePlatform --ozone-platform=wayland'
 
 # Utils
 alias l='ls'

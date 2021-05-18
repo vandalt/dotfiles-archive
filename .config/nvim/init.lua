@@ -70,6 +70,10 @@ require('packer').startup(function()
   use 'GCBallesteros/vim-textobj-hydrogen'
   use 'hkupty/iron.nvim'
 
+  -- Debugging
+  use 'puremourning/vimspector'
+  use 'szw/vim-maximizer'
+
   -- Theming plugins
   use 'joshdick/onedark.vim'
   use {'dracula/vim', as = 'dracula'}
@@ -481,10 +485,10 @@ vim.api.nvim_set_keymap('v', 'ig', '<Plug>(textobj-entire-i)', {})
 -- vim.cmd [[let g:sneak#label = 1]]  -- s matches have labels for quick navigation
 vim.api.nvim_set_keymap('', '<leader>s', '<Plug>Sneak_s', {})
 vim.api.nvim_set_keymap('', '<leader>S', '<Plug>Sneak_S', {})
-vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
-vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
-vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
-vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
+-- vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
+-- vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
+-- vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
+-- vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
 
 
 -- Vista sidebar with lsp
@@ -540,4 +544,35 @@ require('telescope').load_extension('fzy_native')
 
 -- python docstring types
 vim.g.doge_doc_standard_python = 'sphinx'
+vim.g.doge_mapping = '<leader>ld'
 
+-- vimspector debug
+vim.g.vimspector_enable_mappings = 'HUMAN'
+
+-- Window navigation
+vim.api.nvim_set_keymap("n", "<leader>dc", ":call win_gotoid(g:vimspector_session_windows.code)<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>dt", ":call win_gotoid(g:vimspector_session_windows.tagpage)<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>dv", ":call win_gotoid(g:vimspector_session_windows.variables)<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>dw", ":call win_gotoid(g:vimspector_session_windows.watches)<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>ds", ":call win_gotoid(g:vimspector_session_windows.stack_trace)<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>do", ":call win_gotoid(g:vimspector_session_windows.output)<CR>", {noremap = true})
+
+-- debugging controls
+vim.api.nvim_set_keymap("n", "<leader>m", ":MaximizerToggle!<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>dl", ":call vimspector#Launch()<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>de", ":call vimspector#Reset()<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>d<space>", "<Plug>VimspectorContinue", {})
+vim.api.nvim_set_keymap("n", "<leader>dk", "<Plug>VimspectorStop", {})
+vim.api.nvim_set_keymap("n", "<leader>drr", "<Plug>VimspectorRestart", {})
+vim.api.nvim_set_keymap("n", "<leader>dp", "<Plug>VimspectorPause", {})
+vim.api.nvim_set_keymap("n", "<leader>dbp", "<Plug>VimspectorToggleBreakpoint", {})
+vim.api.nvim_set_keymap("n", "<leader>dbc", "<Plug>VimspectorToggleConditionalBreakpoint", {})
+vim.api.nvim_set_keymap("n", "<leader>dfb", "<Plug>VimspectorAddFunctionBreakpoint", {})
+vim.api.nvim_set_keymap("n", "<leader>drc", "<Plug>VimspectorRunToCursor", {})
+vim.api.nvim_set_keymap("n", "<leader>dn", "<Plug>VimspectorStepOver", {})
+vim.api.nvim_set_keymap("n", "<leader>dj", "<Plug>VimspectorStepInto", {})
+vim.api.nvim_set_keymap("n", "<leader>dk", "<Plug>VimspectorStepOut", {})
+vim.api.nvim_set_keymap("n", "<leader>du", "<Plug>VimspectorUpFrame", {})
+vim.api.nvim_set_keymap("n", "<leader>dd", "<Plug>VimspectorDownFrame", {})
+vim.api.nvim_set_keymap("n", "<leader>di", "<Plug>VimspectorBalloonEval", {})
+vim.api.nvim_set_keymap("x", "<leader>di", "<Plug>VimspectorBalloonEval", {})

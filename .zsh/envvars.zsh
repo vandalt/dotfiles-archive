@@ -1,38 +1,48 @@
 ### Path
 #
-# Python tools
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$HOME/.poetry/bin:$PATH"
-#
-# Home bin(s)
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-#
 # Perl stuff
 if ! [[ "$PATH" =~ "/usr/bin/core_perl:" ]]
 then
     PATH="/usr/bin/core_perl:$PATH"
 fi
+
+
+# Things for non-login shells
+if [[ ! -o login ]]
+then
+
+    # Python tools
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    export PATH="$HOME/.poetry/bin:$PATH"
+    #
+    # Home bin(s)
+    if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+    then
+        PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    fi
+
+    # ### Linear algebra
+    # # Linear algrebra
+    # # MKL
+    # export MKL_DYNAMIC=FALSE
+    # export MKL_CBWR=COMPATIBLE
+    # export MKL_NUM_THREADS=1
+    # # OPENBLAS
+    # export OPENBLAS_NUM_THREADS=1
+    # # Others
+    # export OMP_NUM_THREADS=1
+    # export VECLIB_MAXIMUM_THREADS=1
+    # export NUMEXPR_NUM_THREADS=1
+
+fi
+
+
+# export path
 export PATH
 
 ### Text editor
 export EDITOR="vim"
-
-### Linear algebra
-# Linear algrebra
-# MKL
-export MKL_DYNAMIC=FALSE
-export MKL_CBWR=COMPATIBLE
-export MKL_NUM_THREADS=1
-# OPENBLAS
-export OPENBLAS_NUM_THREADS=1
-# Others
-export OMP_NUM_THREADS=1
-export VECLIB_MAXIMUM_THREADS=1
-export NUMEXPR_NUM_THREADS=1
 
 # QT apps
 # export QT_QPA_PLATFORM=wayland
@@ -50,3 +60,4 @@ then
     export GDK_BACKEND=wayland
 fi
 export MOZ_ENABLE_WAYLAND=1
+export MOZ_DBUS_REMOTE=1
