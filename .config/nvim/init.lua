@@ -42,8 +42,8 @@ require('packer').startup(function()
   use 'vim-scripts/argtextobj.vim'  -- Argument text object
   use 'jeetsukumaran/vim-pythonsense'  -- Text objects and motions for Python
   use 'kana/vim-textobj-user'  -- Below works only if I put this here
-  use {'kana/vim-textobj-entire', opt = true, requires = 'kana/vim-textobj-user', setup = 'vim.g.textobj_entire_no_default_key_mappings = true'}
-  use 'rbonvall/vim-textobj-latex'
+  use {'kana/vim-textobj-entire', requires = 'kana/vim-textobj-user'}
+  -- use 'rbonvall/vim-textobj-latex'
   use 'michaeljsmith/vim-indent-object'  -- Indent text object
   use 'vim-scripts/ReplaceWithRegister'  -- Replace text object with register
   use 'bkad/CamelCaseMotion'  -- Camel/sneak case motions (w, b, e)
@@ -69,16 +69,17 @@ require('packer').startup(function()
   use 'goerz/jupytext.vim'  -- Convert and open jupyter notebooks
   use 'GCBallesteros/vim-textobj-hydrogen'
   use 'hkupty/iron.nvim'
+  use 'kshenoy/vim-signature'
+  use 'Glench/Vim-Jinja2-Syntax'
 
   -- Debugging
   use 'puremourning/vimspector'
   use 'szw/vim-maximizer'
 
   -- Theming plugins
-  use 'joshdick/onedark.vim'
-  use {'dracula/vim', as = 'dracula'}
   use 'altercation/vim-colors-solarized'
-  use 'morhetz/gruvbox'
+  use 'folke/tokyonight.nvim'
+  use 'shaunsingh/nord.nvim'
   use 'itchyny/lightline.vim'
 
   -- LSP and lua
@@ -151,24 +152,24 @@ vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent=true})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Tmux and vim navigation
-vim.g.tmux_navigator_no_mappings = true
-vim.api.nvim_set_keymap("n", "<M-h>", ":TmuxNavigateLeft<CR>", {noremap = true, silent=true})
-vim.api.nvim_set_keymap("n", "<M-j>", ":TmuxNavigateDown<CR>", {noremap = true, silent=true})
-vim.api.nvim_set_keymap("n", "<M-k>", ":TmuxNavigateUp<CR>", {noremap = true, silent=true})
-vim.api.nvim_set_keymap("n", "<M-l>", ":TmuxNavigateRight<CR>", {noremap = true, silent=true})
-vim.api.nvim_set_keymap("n", "<M-\\>", ":TmuxNavigatePrevious<CR>", {noremap = true, silent=true})
+-- -- Tmux and vim navigation
+-- vim.g.tmux_navigator_no_mappings = true
+-- vim.api.nvim_set_keymap("n", "<M-h>", ":TmuxNavigateLeft<CR>", {noremap = true, silent=true})
+-- vim.api.nvim_set_keymap("n", "<M-j>", ":TmuxNavigateDown<CR>", {noremap = true, silent=true})
+-- vim.api.nvim_set_keymap("n", "<M-k>", ":TmuxNavigateUp<CR>", {noremap = true, silent=true})
+-- vim.api.nvim_set_keymap("n", "<M-l>", ":TmuxNavigateRight<CR>", {noremap = true, silent=true})
+-- vim.api.nvim_set_keymap("n", "<M-\\>", ":TmuxNavigatePrevious<CR>", {noremap = true, silent=true})
 
 -- Yank consistent with C and D
 vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
 -- Move line in up or down file
-vim.api.nvim_set_keymap('n', '<C-j>', ':m .+1<CR>==', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-k>', ':m .-2<CR>==', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-j>', '<Esc>:m .+1<CR>==gi', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-k>', '<Esc>:m .-2<CR>==gi', {noremap = true})
-vim.api.nvim_set_keymap('v', '<C-j>', ':m \'>+1<CR>gv=gv', {noremap = true})
-vim.api.nvim_set_keymap('v', '<C-k>', ':m \'<-2<CR>gv=gv', {noremap = true})
+vim.api.nvim_set_keymap('n', '<M-j>', ':m .+1<CR>==', {noremap = true})
+vim.api.nvim_set_keymap('n', '<M-k>', ':m .-2<CR>==', {noremap = true})
+vim.api.nvim_set_keymap('i', '<M-j>', '<Esc>:m .+1<CR>==gi', {noremap = true})
+vim.api.nvim_set_keymap('i', '<M-k>', '<Esc>:m .-2<CR>==gi', {noremap = true})
+vim.api.nvim_set_keymap('v', '<M-j>', ':m \'>+1<CR>gv=gv', {noremap = true})
+vim.api.nvim_set_keymap('v', '<M-k>', ':m \'<-2<CR>gv=gv', {noremap = true})
 
 -- Switch 0 and ^ (we can use _ instead of ^ to avoid a recursive mapping)
 vim.api.nvim_set_keymap("n", "0", "_", {})
@@ -208,15 +209,15 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':nohlsearch<CR>', {noremap = true})
 ------------------------------------------------------------
 vim.cmd [[syntax enable]]
 vim.o.termguicolors = true
--- vim.g.onedark_terminal_italics = true
 local lsp_highlight_dark = '#504945'
 local lsp_highlight_light = '#d5c4a1'
 -- local lsp_highlight_dark = 'Grey'
 -- local lsp_highlight_light = 'Grey'
-vim.cmd [[colorscheme gruvbox]]
+-- vim.g.onedark_terminal_italics = true
+vim.cmd [[colorscheme tokyonight]]
 
 -- Status bar
-vim.g.lightline = { colorscheme = 'gruvbox';
+vim.g.lightline = { colorscheme = 'tokyonight';
       active = { left = { { 'mode', 'paste' },
                           { 'gitbranch', 'readonly', 'filename', 'modified' }
                         };
@@ -483,8 +484,8 @@ vim.api.nvim_set_keymap('v', 'ig', '<Plug>(textobj-entire-i)', {})
 
 -- Sneak
 -- vim.cmd [[let g:sneak#label = 1]]  -- s matches have labels for quick navigation
-vim.api.nvim_set_keymap('', '<leader>s', '<Plug>Sneak_s', {})
-vim.api.nvim_set_keymap('', '<leader>S', '<Plug>Sneak_S', {})
+-- vim.api.nvim_set_keymap('', 's', '<Plug>Sneak_s', {})
+-- vim.api.nvim_set_keymap('', 'S', '<Plug>Sneak_S', {})
 -- vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
 -- vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
 -- vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
@@ -497,7 +498,7 @@ vim.g.vista_sidebar_position = 'vertical botright'
 vim.api.nvim_set_keymap('n', '<leader>vv', ':Vista!!<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>vf', ':Vista focus<CR>', {})
 
--- Paste images in markdown with <leader>p
+-- Paste images in markdown with <leader>pi
 vim.cmd [[autocmd FileType markdown nmap <buffer><silent> <leader>pi :call mdip#MarkdownClipboardImage()<CR>]]
 
 -- Clearer gutter signs (note: codedark broke these)
@@ -530,12 +531,15 @@ vim.g.iron_map_extended = 0
 -- Use mix of iron and hydrogen cell textobj to execute cell (note: ih is broken)
 vim.api.nvim_set_keymap('n', '<leader>ir', ':IronRepl<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>if', ':IronFocus<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>is', ':IronRestart<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>x', 'ctrah]h', {})
 
 -- Wiki config
 -- vim.g.vim_markdown_auto_insert_bullets = true
 -- vim.g.vim_markdown_new_list_item_indent = 0
 -- vim.g.vimwiki_global_ext = 0
+vim.api.nvim_set_keymap("n", "<leader>-", '<Plug>VimwikiRemoveHeaderLevel', {})
+vim.api.nvim_set_keymap("n", "<leader>=", '<Plug>VimwikiAddHeaderLevel', {})
 vim.g.vimwiki_list = {{path = '~/perso/notes/',
                        syntax = 'markdown',
                        ext = '.md'}}
@@ -547,7 +551,7 @@ vim.g.doge_doc_standard_python = 'sphinx'
 vim.g.doge_mapping = '<leader>ld'
 
 -- vimspector debug
-vim.g.vimspector_enable_mappings = 'HUMAN'
+-- vim.g.vimspector_enable_mappings = 'HUMAN'
 
 -- Window navigation
 vim.api.nvim_set_keymap("n", "<leader>dc", ":call win_gotoid(g:vimspector_session_windows.code)<CR>", {noremap = true})
@@ -576,3 +580,8 @@ vim.api.nvim_set_keymap("n", "<leader>du", "<Plug>VimspectorUpFrame", {})
 vim.api.nvim_set_keymap("n", "<leader>dd", "<Plug>VimspectorDownFrame", {})
 vim.api.nvim_set_keymap("n", "<leader>di", "<Plug>VimspectorBalloonEval", {})
 vim.api.nvim_set_keymap("x", "<leader>di", "<Plug>VimspectorBalloonEval", {})
+
+-- ARsync mapping
+vim.api.nvim_set_keymap("n", "<leader>su", ":ARsyncUp<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>sk", ":ARsyncUpDelete<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>sd", ":ARsyncDown<CR>", {noremap = true})

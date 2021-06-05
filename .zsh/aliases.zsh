@@ -13,6 +13,12 @@ fi
 alias v='nvim'
 alias vim='nvim'
 
+# Kitty
+if [ $TERM = "xterm-kitty" ]; then
+    alias icat="kitty +kitten icat"
+    alias ssh="kitty +kitten ssh"
+fi
+
 # Config files I access often
 alias cconf='nvim ~/.config/'
 alias cnvim='nvim ~/.config/nvim/init.lua'
@@ -42,6 +48,13 @@ alias pcpsh='pconfig push'
 
 # Two dirs up
 alias ...="cd ../.."
+
+# Taskwarrior
+alias t="task"
+alias ta="task add"
+alias td="task done"
+alias tover="task +OVERDUE"
+alias tact="task +ACTIVE"
 
 # Java scaling
 alias topcat='_JAVA_AWT_WM_NONREPARENTING=1 topcat'  # -Dsun.java2d.uiScale=2'

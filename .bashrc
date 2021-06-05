@@ -11,8 +11,8 @@ export PATH
 
 # >>> conda initialize >>>
 # Stripped down conda init to add conda in path but not activate
-if [ -f "/home/vandal/miniconda3/etc/profile.d/conda.sh" ]; then
-    . "/home/vandal/miniconda3/etc/profile.d/conda.sh"
+if [ -f "/home/vandal/programs/miniconda3/etc/profile.d/conda.sh" ]; then
+    . "/home/vandal/programs/miniconda3/etc/profile.d/conda.sh"
 else
     export PATH="/home/vandal/miniconda3/bin:$PATH"
 fi

@@ -83,6 +83,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/ReplaceWithRegister"
   },
+  ["Vim-Jinja2-Syntax"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/Vim-Jinja2-Syntax"
+  },
   ["argtextobj.vim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/argtextobj.vim"
@@ -90,10 +94,6 @@ _G.packer_plugins = {
   ["auto-pairs"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/auto-pairs"
-  },
-  dracula = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/dracula"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
@@ -103,9 +103,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/goyo.vim"
   },
-  gruvbox = {
+  ["gruvbox.nvim"] = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/gruvbox"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
   },
   ["gundo.vim"] = {
     loaded = true,
@@ -147,10 +147,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-luadev"
   },
-  ["onedark.vim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/onedark.vim"
-  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -178,6 +174,10 @@ _G.packer_plugins = {
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/tokyonight.nvim"
   },
   ["vim-arsync"] = {
     loaded = true,
@@ -235,9 +235,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-matchit"
   },
-  ["vim-maximize"] = {
+  ["vim-maximizer"] = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-maximize"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-maximizer"
   },
   ["vim-python-pep8-indent"] = {
     loaded = true,
@@ -250,6 +250,10 @@ _G.packer_plugins = {
   ["vim-repeat"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-repeat"
+  },
+  ["vim-signature"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-signature"
   },
   ["vim-sleuth"] = {
     loaded = true,
@@ -264,17 +268,12 @@ _G.packer_plugins = {
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   ["vim-textobj-entire"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/opt/vim-textobj-entire"
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-textobj-entire"
   },
   ["vim-textobj-hydrogen"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-textobj-hydrogen"
-  },
-  ["vim-textobj-latex"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-textobj-latex"
   },
   ["vim-textobj-sentence"] = {
     loaded = true,
@@ -311,10 +310,6 @@ _G.packer_plugins = {
 }
 
 time("Defining packer_plugins", false)
--- Setup for: vim-textobj-entire
-time("Setup for vim-textobj-entire", true)
-vim.g.textobj_entire_no_default_key_mappings = true
-time("Setup for vim-textobj-entire", false)
 if should_profile then save_profiles() end
 
 END

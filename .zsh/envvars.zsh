@@ -22,18 +22,18 @@ then
         PATH="$HOME/.local/bin:$HOME/bin:$PATH"
     fi
 
-    # ### Linear algebra
-    # # Linear algrebra
-    # # MKL
-    # export MKL_DYNAMIC=FALSE
-    # export MKL_CBWR=COMPATIBLE
-    # export MKL_NUM_THREADS=1
-    # # OPENBLAS
-    # export OPENBLAS_NUM_THREADS=1
-    # # Others
-    # export OMP_NUM_THREADS=1
-    # export VECLIB_MAXIMUM_THREADS=1
-    # export NUMEXPR_NUM_THREADS=1
+    ### Linear algebra
+    # Linear algrebra
+    # MKL
+    export MKL_DYNAMIC=FALSE
+    export MKL_CBWR=COMPATIBLE
+    export MKL_NUM_THREADS=1
+    # OPENBLAS
+    export OPENBLAS_NUM_THREADS=1
+    # Others
+    export OMP_NUM_THREADS=1
+    export VECLIB_MAXIMUM_THREADS=1
+    export NUMEXPR_NUM_THREADS=1
 
 fi
 
@@ -42,7 +42,7 @@ fi
 export PATH
 
 ### Text editor
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # QT apps
 # export QT_QPA_PLATFORM=wayland

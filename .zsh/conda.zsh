@@ -1,8 +1,8 @@
 # Enable conda (without activating)
-if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-    . "$HOME/miniconda3/etc/profile.d/conda.sh"
+if [ -f "$HOME/programs/miniconda3/etc/profile.d/conda.sh" ]; then
+    . "$HOME/programs/miniconda3/etc/profile.d/conda.sh"
 else
-    export PATH="$HOME/miniconda3/bin:$PATH"
+    export PATH="$HOME/programs/miniconda3/bin:$PATH"
 fi
 
 # Inspired from https://github.com/dfm/dotfiles and https://github.com/leouieda/dotfiles and

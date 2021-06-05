@@ -57,6 +57,7 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%H:%M  %Y-%m-%d}",
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
@@ -101,7 +102,7 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format": "{icon}",
-        "format-wifi": "<span color=\"#cccccc\"> {signalStrength}%</span>",
+        "format-wifi": " {signalStrength}%",
         "format-alt": "{ipaddr}/{cidr} {icon}",
         "format-alt-click": "click-right",
         "format-icons": {
