@@ -46,7 +46,6 @@ export EDITOR="nvim"
 
 # QT apps
 # export QT_QPA_PLATFORM=wayland
-# export QT_QPA_PLATFORMTHEME=gtk2
 # export QT_STYLE_OVERRIDE=adwaita
 # export QT_QPA_PLATFORMTHEME=wayland-egl
 # export QT_WAYLAND_FORCE_DPI=96
@@ -57,6 +56,7 @@ then
     export XDG_SESSION_TYPE=wayland
     export XDG_CURRENT_DESKTOP=sway
     export QT_QPA_PLATFORM=wayland
+    export QT_QPA_PLATFORMTHEME=qt5ct
     export GDK_BACKEND=wayland
 fi
 export MOZ_ENABLE_WAYLAND=1

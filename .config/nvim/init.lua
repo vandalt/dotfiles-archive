@@ -152,24 +152,24 @@ vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent=true})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- -- Tmux and vim navigation
--- vim.g.tmux_navigator_no_mappings = true
--- vim.api.nvim_set_keymap("n", "<M-h>", ":TmuxNavigateLeft<CR>", {noremap = true, silent=true})
--- vim.api.nvim_set_keymap("n", "<M-j>", ":TmuxNavigateDown<CR>", {noremap = true, silent=true})
--- vim.api.nvim_set_keymap("n", "<M-k>", ":TmuxNavigateUp<CR>", {noremap = true, silent=true})
--- vim.api.nvim_set_keymap("n", "<M-l>", ":TmuxNavigateRight<CR>", {noremap = true, silent=true})
--- vim.api.nvim_set_keymap("n", "<M-\\>", ":TmuxNavigatePrevious<CR>", {noremap = true, silent=true})
+-- Tmux and vim navigation
+vim.g.tmux_navigator_no_mappings = true
+vim.api.nvim_set_keymap("n", "<M-h>", ":TmuxNavigateLeft<CR>", {noremap = true, silent=true})
+vim.api.nvim_set_keymap("n", "<M-j>", ":TmuxNavigateDown<CR>", {noremap = true, silent=true})
+vim.api.nvim_set_keymap("n", "<M-k>", ":TmuxNavigateUp<CR>", {noremap = true, silent=true})
+vim.api.nvim_set_keymap("n", "<M-l>", ":TmuxNavigateRight<CR>", {noremap = true, silent=true})
+vim.api.nvim_set_keymap("n", "<M-\\>", ":TmuxNavigatePrevious<CR>", {noremap = true, silent=true})
 
 -- Yank consistent with C and D
 vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
 -- Move line in up or down file
-vim.api.nvim_set_keymap('n', '<M-j>', ':m .+1<CR>==', {noremap = true})
-vim.api.nvim_set_keymap('n', '<M-k>', ':m .-2<CR>==', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-j>', '<Esc>:m .+1<CR>==gi', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-k>', '<Esc>:m .-2<CR>==gi', {noremap = true})
-vim.api.nvim_set_keymap('v', '<M-j>', ':m \'>+1<CR>gv=gv', {noremap = true})
-vim.api.nvim_set_keymap('v', '<M-k>', ':m \'<-2<CR>gv=gv', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-j>', ':m .+1<CR>==', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-k>', ':m .-2<CR>==', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-j>', '<Esc>:m .+1<CR>==gi', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-k>', '<Esc>:m .-2<CR>==gi', {noremap = true})
+vim.api.nvim_set_keymap('v', '<C-j>', ':m \'>+1<CR>gv=gv', {noremap = true})
+vim.api.nvim_set_keymap('v', '<C-k>', ':m \'<-2<CR>gv=gv', {noremap = true})
 
 -- Switch 0 and ^ (we can use _ instead of ^ to avoid a recursive mapping)
 vim.api.nvim_set_keymap("n", "0", "_", {})
@@ -380,8 +380,8 @@ nvim_lsp.diagnosticls.setup {
       },
     };
     formatFiletypes = {
-      -- python = {"yapf", "isort"}
-      python = {"black", "isort"}
+      python = {"yapf", "isort"}
+      -- python = {"black", "isort"}
     };
     formatters = {
       black = {
