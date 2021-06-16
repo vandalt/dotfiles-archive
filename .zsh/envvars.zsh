@@ -23,7 +23,6 @@ then
     fi
 
     ### Linear algebra
-    # Linear algrebra
     # MKL
     export MKL_DYNAMIC=FALSE
     export MKL_CBWR=COMPATIBLE

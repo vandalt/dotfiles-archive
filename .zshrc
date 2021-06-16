@@ -17,17 +17,21 @@ compinit
 # End of lines added by compinstall
 
 # Source plugins
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Source all config files
 for config_file ($HOME/.zsh/*.*sh) source $config_file
 
 # FZF bindings
 # Must be after vi-mode set in config files
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/shell/key-bindings.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -41,4 +45,4 @@ fi
 
 
 export PATH="$HOME/.poetry/bin:$PATH"
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
