@@ -68,7 +68,6 @@ alias p='ipython'
 alias sdn='shutdown now'
 
 # Starting chromium/electron in wayland
-alias code-insiders='code-insiders --enable-features=UseOzonePlatform --ozone-platform=wayland'
 alias code='code --enable-features=UseOzonePlatform --ozone-platform=wayland'
 
 # Utils

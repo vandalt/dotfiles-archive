@@ -46,3 +46,5 @@ fi
 
 export PATH="$HOME/.poetry/bin:$PATH"
 # source /usr/share/nvm/init-nvm.sh
+
+eval "$(zoxide init zsh)"

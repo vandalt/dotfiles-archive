@@ -46,9 +46,9 @@ local function save_profiles(threshold)
   _G._packer.profile_output = results
 end
 
-time("Luarocks path setup", true)
-local package_path_str = "/home/vandal/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/vandal/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/vandal/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/vandal/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/vandal/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
+time([[Luarocks path setup]], true)
+local package_path_str = "/home/vandal/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/vandal/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/vandal/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/vandal/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/vandal/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -57,24 +57,21 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
   package.cpath = package.cpath .. ';' .. install_cpath_pattern
 end
 
-time("Luarocks path setup", false)
-time("try_loadstring definition", true)
+time([[Luarocks path setup]], false)
+time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
   local success, result = pcall(loadstring(s))
   if not success then
-    print('Error running ' .. component .. ' for ' .. name)
-    error(result)
+    vim.schedule(function()
+      vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
+    end)
   end
   return result
 end
 
-time("try_loadstring definition", false)
-time("Defining packer_plugins", true)
+time([[try_loadstring definition]], false)
+time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["AnsiEsc.vim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/AnsiEsc.vim"
-  },
   CamelCaseMotion = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/CamelCaseMotion"
@@ -91,29 +88,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/argtextobj.vim"
   },
-  ["auto-pairs"] = {
+  ["dashboard-nvim"] = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/auto-pairs"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/dashboard-nvim"
+  },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/diffview.nvim"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/friendly-snippets"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
-  },
-  ["goyo.vim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/goyo.vim"
-  },
-  ["gruvbox.nvim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
-  },
-  ["gundo.vim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/gundo.vim"
-  },
-  ["gv.vim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/gv.vim"
   },
   ["iron.nvim"] = {
     loaded = true,
@@ -123,17 +112,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/jupytext.vim"
   },
-  ["lightline.vim"] = {
+  ["lualine.nvim"] = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/lightline.vim"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
-  ["md-img-paste.vim"] = {
+  neogit = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/md-img-paste.vim"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/neogit"
   },
   ["nlua.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nlua.nvim"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -143,17 +136,30 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
-  ["nvim-luadev"] = {
+  ["nvim-toggleterm.lua"] = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-luadev"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-toggleterm.lua"
+  },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   ["packer.nvim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+  },
+  ["poet-v"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/poet-v"
   },
   ["popup.nvim"] = {
     loaded = true,
@@ -163,13 +169,25 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/splitjoin.vim"
   },
-  tabular = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/tabular"
-  },
   ["telescope-fzy-native.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim"
+  },
+  ["telescope-github.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/telescope-github.nvim"
+  },
+  ["telescope-project.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/telescope-project.nvim"
+  },
+  ["telescope-symbols.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/telescope-symbols.nvim"
+  },
+  ["telescope-z.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/telescope-z.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -195,10 +213,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-commentary"
   },
-  ["vim-devicons"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-devicons"
-  },
   ["vim-doge"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-doge"
@@ -223,17 +237,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-gtfo"
   },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-illuminate"
+  },
   ["vim-indent-object"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-indent-object"
   },
-  ["vim-markdown"] = {
+  ["vim-matchup"] = {
     loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-markdown"
-  },
-  ["vim-matchit"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-matchit"
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-matchup"
   },
   ["vim-maximizer"] = {
     loaded = true,
@@ -259,10 +273,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-sleuth"
   },
-  ["vim-sneak"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-sneak"
-  },
   ["vim-surround"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-surround"
@@ -274,10 +284,6 @@ _G.packer_plugins = {
   ["vim-textobj-hydrogen"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-textobj-hydrogen"
-  },
-  ["vim-textobj-sentence"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-textobj-sentence"
   },
   ["vim-textobj-user"] = {
     loaded = true,
@@ -295,21 +301,29 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-vinegar"
   },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
+  },
   vimspector = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vimspector"
   },
-  vimwiki = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vimwiki"
-  },
   ["vista.vim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vista.vim"
+  },
+  ["which-key.nvim"] = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/which-key.nvim"
   }
 }
 
-time("Defining packer_plugins", false)
+time([[Defining packer_plugins]], false)
 if should_profile then save_profiles() end
 
 END
