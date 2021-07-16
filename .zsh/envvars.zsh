@@ -23,6 +23,8 @@ then
     fi
 
     ### Linear algebra
+    # Doom emacs command
+    export PATH="$HOME/.emacs.d/bin:$PATH"
     # MKL
     export MKL_DYNAMIC=FALSE
     export MKL_CBWR=COMPATIBLE

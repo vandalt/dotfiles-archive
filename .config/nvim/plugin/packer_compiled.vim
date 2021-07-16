@@ -88,10 +88,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/argtextobj.vim"
   },
-  ["dashboard-nvim"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/dashboard-nvim"
-  },
   ["diffview.nvim"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/diffview.nvim"
@@ -269,10 +265,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-signature"
   },
-  ["vim-sleuth"] = {
-    loaded = true,
-    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-sleuth"
-  },
   ["vim-surround"] = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vim-surround"
@@ -312,6 +304,10 @@ _G.packer_plugins = {
   vimspector = {
     loaded = true,
     path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vimspector"
+  },
+  vimwiki = {
+    loaded = true,
+    path = "/home/vandal/.local/share/nvim/site/pack/packer/start/vimwiki"
   },
   ["vista.vim"] = {
     loaded = true,

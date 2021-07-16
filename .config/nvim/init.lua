@@ -33,6 +33,7 @@ require('packer').startup(function()
         enable = true,              -- false will disable the whole extension
         disable = { "c", "rust" },  -- list of language that will be disabled
       },
+      indent = {enable = false},
     }
   }
 
@@ -48,7 +49,7 @@ require('packer').startup(function()
   use 'tpope/vim-fugitive'  -- git commands
   use 'tpope/vim-eunuch'  -- Enhanced unix shell commands
   use 'tpope/vim-unimpaired'  -- "Paired" commands with '[' and ']'
-  use 'tpope/vim-sleuth'  -- Heuristically set indentation
+  -- use 'tpope/vim-sleuth'  -- Heuristically set indentation
   use 'tpope/vim-vinegar'  -- nicer file navigation
   use 'AndrewRadev/splitjoin.vim'  -- Convert between multi-line and single-line statements
   use 'justinmk/vim-gtfo'  -- Go to terminal (got) or file manager (gof)
@@ -89,7 +90,7 @@ require('packer').startup(function()
     }
   }
   use 'folke/which-key.nvim'
-  use 'glepnir/dashboard-nvim'
+  -- use 'glepnir/dashboard-nvim'
   use {
     'TimUntersberger/neogit',
     requires = {
@@ -97,8 +98,8 @@ require('packer').startup(function()
       'sindrets/diffview.nvim'
     },
   }
-  use "akinsho/nvim-toggleterm.lua"
-
+  use 'akinsho/nvim-toggleterm.lua'
+  use 'vimwiki/vimwiki'
 
   -- Activate poetry envs in vim
   -- Small workaround to make manual activation work
@@ -152,8 +153,12 @@ vim.o.completeopt = "menuone,noselect"
 -- Enable filetype plugin
 vim.cmd [[filetype plugin on]]
 
--- Indendation when vim-sleuth doesn't do what I want
+-- Indendation (had problems with vim-sleuth for some python projects)
 vim.cmd [[autocmd Filetype cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
+vim.cmd [[autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
+vim.cmd [[autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
+vim.cmd [[autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
+vim.cmd [[autocmd BufNewFile, BufRead *.ipynb setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
 
 -- Remove trailing spaces
 vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
@@ -187,6 +192,38 @@ vim.cmd [[call togglebg#map("<F5>")]]  -- TODO: Implement this and remove solari
 
 -- Python: always unix fileformat
 vim.cmd [[autocmd BufNewFile, BufRead *.py set fileformat=unix]]
+
+-- }}}
+
+-- {{{ Custom functions
+
+-- Function with a few defaults to write prose (Global so can call in editor)
+-- Toggle spell check
+
+function Prose(bufnr)
+  local function map(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  map('n', '<leader>ap', 'vasgq', {noremap = true})  -- Line to paragraph
+  map('n', '<leader>al', 'vipJ', {noremap = true})  -- Paragraph to line
+  vim.bo.textwidth = 80
+  vim.bo.formatoptions = vim.bo.formatoptions..'t'  -- Wrap on width
+  vim.wo.linebreak = true
+  vim.wo.wrap = true
+  vim.wo.list = false
+  vim.o.display = 'lastline'
+  vim.bo.autoindent = false
+  vim.bo.cindent = false
+  vim.bo.smartindent = false
+  vim.bo.indentexpr = ''
+  vim.wo.colorcolumn = ''
+  map('n', 'j', 'gj', {noremap = true})
+  map('n', 'k', 'gk', {noremap = true})
+  map('v', 'j', 'gj', {noremap = true})
+  map('v', 'k', 'gk', {noremap = true})
+end
+
+vim.cmd [[autocmd FileType tex,plaintex lua Prose()]]
+vim.cmd [[autocmd BufNewFile,BufRead *.txt lua Prose()]]
+vim.cmd [[autocmd BufNewFile,BufRead *.md lua Prose()]]
 
 -- }}}
 
@@ -297,6 +334,10 @@ vim.api.nvim_set_keymap("i", "<Tab>", "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-
 vim.api.nvim_set_keymap("s", "<Tab>", "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "vsnip#jumpable(-1)   ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "vsnip#jumpable(-1)   ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", {expr = true})
+
+-- Spell checking
+vim.api.nvim_set_keymap('', '<A-f>', ':setlocal spell! spelllang=fr<CR>', {})
+vim.api.nvim_set_keymap('', '<A-e>', ':setlocal spell! spelllang=en_ca<CR>', {})
 
 -- }}}
 
@@ -586,6 +627,50 @@ require'compe'.setup {
   };
 }
 
+-- Use tab to cycle completion
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
 vim.g.poetv_executables = {'poetry'}
 
 -- Telescope extensions
@@ -597,6 +682,16 @@ telescope.setup {
     project = {
       base_dir = '~',
       max_depth = 3
+    }
+  },
+  pickers = {
+    buffers = {
+      sort_lastused = true,
+      theme = "dropdown",
+      previewer = false,
+      mappings = {
+        i = {["<c-d>"] = "delete_buffer"}
+      }
     }
   }
 }
@@ -629,7 +724,7 @@ vim.api.nvim_set_keymap('n', '<leader>fp', [[<cmd>lua require'telescope'.extensi
 vim.api.nvim_set_keymap('n', '<leader>fz', [[<cmd>lua require'telescope'.extensions.z.list{cmd = {vim.o.shell, "-c", "zoxide query -ls"}}<CR>]], {noremap=true, silent=true})
 
 
-vim.g.dashboard_default_executive = 'telescope'
+-- vim.g.dashboard_default_executive = 'telescope'
 
 -- Basic neogit setup
 local neogit = require('neogit')
@@ -639,8 +734,16 @@ neogit.setup {
 
 -- Terminals that can open and close
 require('toggleterm').setup{
-  open_mapping = [[<leader>\]],
+  open_mapping = [[<A-\>]],
   start_in_insert = false,
 }
+
+-- Vimwiki
+vim.g.vimwiki_list = {{
+  path = '~/projects/notes/',
+  syntax = 'markdown',
+  ext = '.md',
+}}
+vim.g.vimwiki_auto_chdir = 1
 
 -- }}}
