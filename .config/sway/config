@@ -9,13 +9,15 @@ set $up k
 set $right l
 # Terminal emulator
 set $term kitty
+# set $term alacritty
 # Background path
 # set $background /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
-set $background ~/Pictures/background
+set $background /usr/share/backgrounds/default.png
+# set $background ~/Pictures/background
 # Application launcher
 # Note: swaymsg s.t. resulting window opens original workspace
 # With bemenu
-# set $menu demnu_path | bemenu-run | xargs swaymsg exec --
+# set $menu dmenu_path | bemenu-run | xargs swaymsg exec --
 # set $appmenu dmenu_path | j4-dmenu-desktop --dmenu='bemenu -i'
 # With wofi
 set $menu demnu_path | wofi --show run | xargs swaymsg exec --
@@ -48,6 +50,16 @@ set $ws7  7:7
 set $ws8  8:8
 set $ws9  9:9
 set $ws10 10:10
+# set $ws1  1
+# set $ws2  2
+# set $ws3  3
+# set $ws4  4
+# set $ws5  5
+# set $ws6  6
+# set $ws7  7
+# set $ws8  8
+# set $ws9  9
+# set $ws10 10
 
 ### Output configuration
 #
@@ -66,7 +78,7 @@ exec_always kanshi
 #
 exec udiskie
 #
-exec libinput-gestures
+# exec libinput-gestures
 
 # Lock after 5 minutes, turn off displays after 10 minutes, lock before sleep
 exec swayidle -w \
@@ -115,6 +127,7 @@ gaps inner 5
 
 # Floating windows
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="gnome-font-viewer"] floating enable
 for_window [app_id="blueberry.py"] floating enable
 for_window [app_id="galculator"] floating enable
 for_window [app_id="Alacritty"] floating enable
