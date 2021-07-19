@@ -6,3 +6,4 @@ setopt nomatch
 setopt correct
 setopt auto_name_dirs
 unsetopt notify
+setopt nonomatch
