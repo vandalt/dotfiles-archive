@@ -56,13 +56,12 @@ alias td="task done"
 alias tover="task +OVERDUE"
 alias tact="task +ACTIVE"
 
-# Java scaling
-alias topcat='_JAVA_AWT_WM_NONREPARENTING=1 topcat'  # -Dsun.java2d.uiScale=2'
-alias jmol='_JAVA_AWT_WM_NONREPARENTING=1 jmol'  # -Dsun.java2d.uiScale=2'
-
 # Python
 alias jlab='jupyter lab'
 alias p='ipython'
+# enable shared libraries (requied for some packages like theano)
+alias spyenv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv'
+alias psh='poetry shell'
 
 # Power
 alias sdn='shutdown now'

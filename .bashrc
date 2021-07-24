@@ -8,7 +8,7 @@ fi
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH"
 fi
 export PATH
 
@@ -32,3 +32,16 @@ alias onestat='systemctl --user status onedrive'
 alias onesync='onedrive --synchronize'
 alias oneresync='onedrive --synchronize --resync'
 alias onemonit='onedrive --monitor'
+
+infsync() {
+  while :
+  do
+      onedrive --synchronize
+      echo "STOPPED HERE"
+      echo ""
+      echo "RESTART"
+  done
+}
+
+# Neovim alias
+alias vim='nvim'
