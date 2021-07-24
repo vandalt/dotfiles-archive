@@ -25,17 +25,7 @@ require('packer').startup(function()
   }
 
   -- Treesitter
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
-    require'nvim-treesitter.configs'.setup {
-      ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-      ignore_install = { "javascript" }, -- List of parsers to ignore installing
-      highlight = {
-        enable = true,              -- false will disable the whole extension
-        disable = { "c", "rust" },  -- list of language that will be disabled
-      },
-      indent = {enable = false},
-    }
-  }
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
   -- Completion and related things
   use 'hrsh7th/nvim-compe'
@@ -104,7 +94,7 @@ require('packer').startup(function()
   -- Activate poetry envs in vim
   -- Small workaround to make manual activation work
   -- TODO: Make auto activation work
-  use '~/projects/poet-v'
+  -- use '~/projects/poet-v'
 
   -- UI plugins
   use 'altercation/vim-colors-solarized'
@@ -113,13 +103,6 @@ require('packer').startup(function()
   use {
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
-
-    config = require('lualine').setup{
-      options = {theme = 'tokyonight',
-        section_separators = '',  -- on en revient des triangles à moment donné
-        component_separators = '',
-      }
-    }
   }
 end)
 -- }}}
@@ -746,4 +729,19 @@ vim.g.vimwiki_list = {{
 }}
 vim.g.vimwiki_auto_chdir = 1
 
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c", "rust" },  -- list of language that will be disabled
+  },
+  indent = {enable = false},
+}
+require('lualine').setup{
+  options = {theme = 'tokyonight',
+    section_separators = '',  -- on en revient des triangles à moment donné
+    component_separators = '',
+  }
+}
 -- }}}

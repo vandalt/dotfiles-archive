@@ -78,7 +78,7 @@ exec_always kanshi
 #
 exec udiskie
 #
-# exec libinput-gestures
+exec libinput-gestures
 
 # Lock after 5 minutes, turn off displays after 10 minutes, lock before sleep
 exec swayidle -w \
@@ -100,6 +100,7 @@ input $touchpad {
 input "type:keyboard" {
 	repeat_delay 250
 	xkb_layout "us,us"
+	# xkb_variant ",altgr-intl"
 	xkb_variant ",intl"
 	xkb_options "grp:alt_space_toggle,caps:swapescape,compose:ralt"
 }
