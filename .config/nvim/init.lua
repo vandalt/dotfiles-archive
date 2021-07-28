@@ -483,11 +483,11 @@ nvim_lsp.ccls.setup{on_attach = on_attach}
 nvim_lsp.vimls.setup{on_attach = on_attach}
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.expand('~/programs/lua-language-server')
-local sumneko_binary = sumneko_root_path .. "/bin/Linux/" .. "lua-language-server"
-local sumneko_main = sumneko_root_path .. "/main.lua"
--- local sumneko_binary = 'lua-language-server'
--- local sumneko_main = '/usr/share/lua-language-server/main.lua'
+-- local sumneko_root_path = vim.fn.expand('~/programs/lua-language-server')
+-- local sumneko_binary = sumneko_root_path .. "/bin/Linux/" .. "lua-language-server"
+-- local sumneko_main = sumneko_root_path .. "/main.lua"
+local sumneko_binary = 'lua-language-server'
+local sumneko_main = '/usr/share/lua-language-server/main.lua'
 
 require('nlua.lsp.nvim').setup(nvim_lsp, {
   on_attach = on_attach,
