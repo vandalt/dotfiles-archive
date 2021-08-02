@@ -22,17 +22,19 @@ then
         PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH"
     fi
 
-    ### Linear algebra
     # Doom emacs command
     export PATH="$HOME/.emacs.d/bin:$PATH"
+
+    ### Linear algebra
     # MKL
     export MKL_DYNAMIC=FALSE
     export MKL_CBWR=COMPATIBLE
     export MKL_NUM_THREADS=1
     # OPENBLAS
     export OPENBLAS_NUM_THREADS=1
+    # Note: OMP changes nproc to 1
+    # export OMP_NUM_THREADS=1
     # Others
-    export OMP_NUM_THREADS=1
     export VECLIB_MAXIMUM_THREADS=1
     export NUMEXPR_NUM_THREADS=1
 
@@ -59,6 +61,7 @@ then
     export QT_QPA_PLATFORM=wayland
     export QT_QPA_PLATFORMTHEME=qt5ct
     export GDK_BACKEND=wayland
+    export _JAVA_AWT_WM_NONREPARENTING=1
 fi
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_DBUS_REMOTE=1

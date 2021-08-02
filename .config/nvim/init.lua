@@ -89,7 +89,29 @@ require('packer').startup(function()
     },
   }
   use 'akinsho/nvim-toggleterm.lua'
-  use 'vimwiki/vimwiki'
+  -- use 'vimwiki/vimwiki'
+  use {'kristijanhusak/orgmode.nvim', config = function()
+    require('orgmode').setup{}
+    end
+  }
+  use {
+    'oberblastmeister/neuron.nvim',
+    branch = "unstable",
+    requires = {
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require'neuron'.setup {
+        virtual_titles = true,
+        mappings = true,
+        run = nil, -- function to run when in neuron dir
+        neuron_dir = "~/notes", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
+        leader = "gz", -- the leader key to for all mappings, remember with 'go zettel'
+      }
+    end
+  }
 
   -- Activate poetry envs in vim
   -- Small workaround to make manual activation work
@@ -99,6 +121,8 @@ require('packer').startup(function()
   -- UI plugins
   use 'altercation/vim-colors-solarized'
   use 'folke/tokyonight.nvim'
+  -- use 'gruvbox-community/gruvbox'
+  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
   -- lua status line
   use {
     'hoob3rt/lualine.nvim',
@@ -142,6 +166,7 @@ vim.cmd [[autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtab
 vim.cmd [[autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
 vim.cmd [[autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
 vim.cmd [[autocmd BufNewFile, BufRead *.ipynb setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
+vim.cmd [[autocmd Filetype norg setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
 
 -- Remove trailing spaces
 vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
@@ -170,7 +195,8 @@ vim.api.nvim_exec([[
 -- Colors
 vim.cmd [[syntax enable]]
 vim.o.termguicolors = true
-vim.cmd [[colorscheme tokyonight]]
+vim.g.gruvbox_bold  = 0
+vim.cmd [[colorscheme gruvbox]]
 vim.cmd [[call togglebg#map("<F5>")]]  -- TODO: Implement this and remove solarized
 
 -- Python: always unix fileformat
@@ -722,12 +748,12 @@ require('toggleterm').setup{
 }
 
 -- Vimwiki
-vim.g.vimwiki_list = {{
-  path = '~/projects/notes/',
-  syntax = 'markdown',
-  ext = '.md',
-}}
-vim.g.vimwiki_auto_chdir = 1
+-- vim.g.vimwiki_list = {{
+--   path = '~/projects/notes/',
+--   syntax = 'markdown',
+--   ext = '.md',
+-- }}
+-- vim.g.vimwiki_auto_chdir = 1
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -739,7 +765,7 @@ require'nvim-treesitter.configs'.setup {
   indent = {enable = false},
 }
 require('lualine').setup{
-  options = {theme = 'tokyonight',
+  options = {theme = 'gruvbox',
     section_separators = '',  -- on en revient des triangles à moment donné
     component_separators = '',
   }

@@ -1,13 +1,13 @@
-@import "tokyonight.css";
+@import "minimal.css";
 
 * {
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    /* font-family: Roboto, Helvetica, Arial, "Font Awesome 5 Free", "MesloLGS NF", sans-serif; */
+    font-family: Roboto, Helvetica, Arial, "Font Awesome 5 Free", "MesloLGS NF", sans-serif;
     /* For fedora put both fontawesome so 5 precedes 4 (the latter is needed by texlive) */
     /* Also, helvetica caused icons to not show properly*/
-    font-family: Roboto, Arial, "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome", "all-the-icon", "MesloLGS NF", sans-serif;
+    /* font-family: Roboto, Arial, "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome", "all-the-icon", "MesloLGS NF", sans-serif; */
     font-size: 13px;
     box-shadow: none;
     text-shadow: none;
@@ -39,7 +39,8 @@ window#waybar.hidden {
 }
 
 #workspaces button.focused {
-    background-color: @background-focus;
+    background: transparent;
+    /* background-color: @background-focus; */
     color: @foreground-focus;
     box-shadow: inset 0 -3px @bar-border-focus;
 }
