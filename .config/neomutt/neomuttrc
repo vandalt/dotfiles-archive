@@ -1,91 +1,76 @@
-# Dracula colors (wiht minor additions) 
-source ~/.config/neomutt/dracula.muttrc
+source ~/.config/neomutt/gruvbox.muttrc
 
-### Identity and accounts ###
-set realname = "Thomas Vandal"									   # Real name is always the same
+### Identity and accounts
+set realname = "Thomas Vandal"
+set folder = ~/.mail  # Parent dir of all mail
+
+# Use UdeM account by default, but make both available with hools
 source ~/.config/neomutt/udem.muttrc							   # Main account info
 folder-hook 'udem' 'source ~/.config/neomutt/udem.muttrc'		   # School account hook
 folder-hook 'personal' 'source ~/.config/neomutt/personal.muttrc'  # Personal account hook
 
-### Folders ###
-set folder = ~/.mail							     # Mailboxes location
-set alias_file = "~/.config/neomutt/aliases"         # Alias file
-source $alias_file
-named-mailboxes "UdeM" "+udem/Inbox"			     # School account
-named-mailboxes "  Sent" "=udem/Sent"
-named-mailboxes "  Drafts" "=udem/Drafts"
-named-mailboxes "  Trash" "=udem/Trash"
-named-mailboxes "  SPIRou Log" "=udem/SPIRou Log"    # SPIRou Logs
-named-mailboxes "  SPIRou CCFs" "=udem/SPIRou CCFs"  # SPIRou Logs
-named-mailboxes "  ASTRO" "=udem/ASTRO"			     # Old ASTRO mail
-named-mailboxes "  McGill" "=udem/McGill"		     # Old McGill mail
-named-mailboxes "Personal" "+personal/Inbox"         # Personal account
-named-mailboxes "  Sent" "=personal/Sent"
-named-mailboxes "  Drafts" "=personal/Drafts"
-named-mailboxes "  Junk" "=personal/Junk"
-named-mailboxes "  Deleted" "=personal/Deleted"
+# Set mailboxes
+source ~/.config/neomutt/boxes.muttrc
 
-
-### Basic options ###
-set beep_new					   # Bell on new messages
-set mail_check = 5				   # Interval to check for mail
-set mail_check_stats               # Update mail status
+### General neomutt options
+set beep_new  # Bell on new messages
+set mail_check = 5  # Interval to check for mail
+set mail_check_stats  # Update mail status
 set mail_check_stats_interval = 5  # Update mail status at this interval
-set help = no					   # Don't show help bar
-set wait_key = no				   # Silently return after external commands
-set move = no					   # Handled by imap stuff
-set delete						   # Don't ask, just do
-unset confirmappend      		   # Don't ask, just do
-set quit                 		   # Don't ask, just do
-set sort_alias = alias			   # Sort by alias name
-set reverse_alias = yes			   # Use alias personal name in index
-set sort = reverse-date-received   # Sort mail by date, latest on top
+set wait_key = no  # Silently return after external commands
+set sidebar_visible = yes
+set sidebar_short_path = yes
+set move = no  # Handled by imap stuff
+set delete  # Don't ask before deleting
+unset confirmappend  # Don't ask before appending/moving
+set quit  # Don't ask before quitting
+set help = no  # Don't show the help bar (comment out if needed)
+set sort = reverse-date-received  # Latest messages on top
 
 # Display formatting
 set date_format="%y-%m-%d %H:%M"
 set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
 set status_format="───[ Folder: %D ]───[%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+set sidebar_format = "%D%?F? [%F]?%* %?N?%N/?%S"  # Mailbox display format in sidebar
+set sidebar_delim_chars="/"  # Delimiter for splits in mailboxes
+set sidebar_indent_string="  "  # Indent for folders
 
-# View messages
-# This requires a ~/.mailcap entry with the copiousoutput flag
-auto_view text/html
-set mailcap_path = ~/.config/neomutt/mailcap
-alternative_order multipart/mixed multipart/related text/enriched text/plain image/*
-mime_lookup application/octet-stream
-
-# New mail notifications
-# Requires a neomutt image at indicated path
+# Notifications
 set new_mail_command="notify-send --icon='/home/vandal/Pictures/neomutt.png' \
 'New Email.' 'You have new mail.' &"
 
-### Pager ###
-ignore *											   # Ignore all fields
-unignore From Message-ID Date To Cc Reply-to Subject   # Show some of them
-set pager_stop										   # Don't go to next message
-unset markers										   # Dont't show '+' on wrapped lines
+### Reading messages
+# Define how to open messages
+auto_view text/html  # Do not require opening html as attachment
+set mailcap_path = ~/.config/neomutt/mailcap  # File with app associations
+alternative_order multipart/mixed multipart/related text/enriched text/plain image/*
+mime_lookup application/octet-stream
 
-### Composition ###
-set edit_headers										  # Allow to edit headers in editor
-set editor = "nvim"										  # Use neovim
-set mime_type_query_command = "xdg-mime query filetype"	  # Determine mime type of attachments
-set include
-set attribution = "\nOn %d, %n wrote:\n"				  # Pattern before message replied to
+# Pager view
+ignore *  # Ignore all fields in pager view
+unignore From Message-ID Date To Cc Reply-to Subject  # Show some of them
+set pager_stop  # Don't go to next message
+unset markers  # Dont't show '+' on wrapped lines
 
-### Sidebar ###
-set sidebar_visible = yes								  # Show sidebar by default
-set sidebar_format = "%D%?F? [%F]?%* %?N?%N/?%S"		  # Mailbox format
-set sidebar_delim_chars="/"								  # Delimiter for splits
-set sidebar_indent_string="  "							  # Indent string
+### Compsition messages
+set edit_headers  # Allow to edit headers in editor
+set editor = "nvim"  # Use neovim
+set mime_type_query_command = "xdg-mime query filetype"  # Determine mime type of attachments
+set include  # Include copy of message in reply
+set attribution = "\nOn %d, %n wrote:\n"  # Pattern before message replied to
+set query_command = "echo %s | xargs khard email --parsable --"
 
-### Navigation bindings ###
+### Keybindings
+bind editor <Tab> complete-query
+bind editor ^T    complete
 
 # Sidebar
 bind index,pager B sidebar-toggle-visible  # Toggle
-bind index,pager \Cp sidebar-prev		   # Previous folder
-bind index,pager \Cn sidebar-next		   # Next folder
-bind index,pager \Co sidebar-open		   # Open highlighted folder
+bind index,pager \Cp sidebar-prev  # Previous folder
+bind index,pager \Cn sidebar-next  # Next folder
+bind index,pager \Co sidebar-open  # Open highlighted folder
 
-# Vi-like bindings
+# More vi-like bindings
 bind pager j next-line
 bind pager k previous-line
 bind attach,index,pager \CD next-page
@@ -96,5 +81,23 @@ bind attach,index g first-entry
 bind attach,index G last-entry
 bind index,pager N search-opposite
 
-### Macros ###
-source ~/.config/neomutt/macros.muttrc    # Source macros
+## Macros
+# Sync mailboxes now
+macro index S "!mbsync -qa &<enter>" "Update through mbsync"
+
+# Save message somewhere else
+macro index M "<save-message>?<toggle-mailboxes>"
+
+# Follow urls in message
+macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+# Multi/alternatives for text and html in composed messages
+macro compose K "| pandoc -f markdown -t html -o /tmp/neomutt-alternative.html<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><previous-entry><tag-entry><group-alternatives>"
+
+macro index,pager C \
+  "<pipe-message>khard add-email<return>" \
+  "add the sender email address to khard"
+
+# Jump to mailboxes/folders
+macro index \e1 "<change-folder> =udem/Inbox/<enter>"
+macro index \e2 "<change-folder> =personal/Inbox/<enter>"

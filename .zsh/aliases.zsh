@@ -19,6 +19,16 @@ if [ $TERM = "xterm-kitty" ]; then
     alias ssh="kitty +kitten ssh"
 fi
 
+# Alacritty colors
+if [ $TERM = "alacritty" ]; then
+    LIGHT_COLOR='gruvbox_light.yml'
+    DARK_COLOR='gruvbox_dark.yml'
+
+    alias aday="alacritty-colorscheme apply $LIGHT_COLOR"
+    alias anight="alacritty-colorscheme apply $DARK_COLOR"
+    alias atoggle="alacritty-colorscheme toggle $LIGHT_COLOR $DARK_COLOR"
+fi
+
 # Config files I access often
 alias cconf='nvim ~/.config/'
 alias cnvim='nvim ~/.config/nvim/init.lua'
@@ -55,6 +65,7 @@ alias ta="task add"
 alias td="task done"
 alias tover="task +OVERDUE"
 alias tact="task +ACTIVE"
+alias ttui="taskwarrior-tui"
 
 # Python
 alias jlab='jupyter lab'

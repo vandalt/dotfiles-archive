@@ -39,12 +39,14 @@ source /usr/share/fzf/completion.zsh
 alias luamake=/home/vandal/programs/lua-language-server/3rd/luamake/luamake
 
 if command -v pyenv 1>/dev/null 2>&1; then
+  # Recommended by pyenv
   eval "$(pyenv init --path)"
+  # Make completions work
   eval "$(pyenv init -)"
+  # Auto-activate virtual envs using local pyenv
+  # eval "$(pyenv virtualenv-init -)"
 fi
 
-
-export PATH="$HOME/.poetry/bin:$PATH"
 # source /usr/share/nvm/init-nvm.sh
 
 eval "$(zoxide init zsh)"

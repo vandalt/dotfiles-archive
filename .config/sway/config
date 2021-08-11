@@ -68,14 +68,6 @@ set $ws10 10
 output * bg $background fill
 # Configuration: configuration is done with kanshi
 
-### Idle configuration
-#
-# Lock after 5 minutes, turn off displays after 10 minutes, lock before sleep
-exec swayidle -w \
-    timeout 300 '$lock' \
-    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    before-sleep '$lock'
-
 ### Input configuration
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Touchpad
@@ -349,6 +341,21 @@ mode "move" {
     bindsym Escape mode "default"
 }
 bindsym $mod+o mode "move"
+
+#
+# Execute programs for sway session
+#
+# Lock after 5 minutes, turn off displays after 10 minutes, lock before sleep
+exec swayidle -w \
+    timeout 300 '$lock' \
+    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    before-sleep '$lock'
+exec_always "pkill kanshi; exec kanshi"
+# This is required for gammastep to access location
+exec /usr/lib/geoclue-2.0/demos/agent
+exec gammastep
+exec libinput-gestures
+exec udiskie
 
 #
 # Status Bar:

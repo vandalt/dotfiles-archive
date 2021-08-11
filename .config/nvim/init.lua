@@ -39,7 +39,7 @@ require('packer').startup(function()
   use 'tpope/vim-fugitive'  -- git commands
   use 'tpope/vim-eunuch'  -- Enhanced unix shell commands
   use 'tpope/vim-unimpaired'  -- "Paired" commands with '[' and ']'
-  -- use 'tpope/vim-sleuth'  -- Heuristically set indentation
+  use 'tpope/vim-sleuth'  -- Heuristically set indentation
   use 'tpope/vim-vinegar'  -- nicer file navigation
   use 'AndrewRadev/splitjoin.vim'  -- Convert between multi-line and single-line statements
   use 'justinmk/vim-gtfo'  -- Go to terminal (got) or file manager (gof)
@@ -89,7 +89,6 @@ require('packer').startup(function()
     },
   }
   use 'akinsho/nvim-toggleterm.lua'
-  -- use 'vimwiki/vimwiki'
   use {'kristijanhusak/orgmode.nvim', config = function()
     require('orgmode').setup{}
     end
@@ -138,6 +137,7 @@ vim.wo.list = true
 vim.o.title = true
 vim.o.shortmess = vim.o.shortmess.."c"
 vim.o.hidden = true
+vim.o.clipboard = "unnamedplus"
 
 -- Save/backup options
 vim.o.backup = false
@@ -164,7 +164,7 @@ vim.cmd [[filetype plugin on]]
 vim.cmd [[autocmd Filetype cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
 vim.cmd [[autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
 vim.cmd [[autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
-vim.cmd [[autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
+vim.cmd [[autocmd Filetype markdown setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
 vim.cmd [[autocmd BufNewFile, BufRead *.ipynb setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]]
 vim.cmd [[autocmd Filetype norg setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2]]
 
@@ -231,7 +231,7 @@ function Prose(bufnr)
 end
 
 vim.cmd [[autocmd FileType tex,plaintex lua Prose()]]
-vim.cmd [[autocmd BufNewFile,BufRead *.txt lua Prose()]]
+-- vim.cmd [[autocmd BufNewFile,BufRead *.txt lua Prose()]]
 vim.cmd [[autocmd BufNewFile,BufRead *.md lua Prose()]]
 
 -- }}}

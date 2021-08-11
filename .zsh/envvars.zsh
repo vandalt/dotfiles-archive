@@ -21,6 +21,8 @@ then
     then
         PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH"
     fi
+    # This is for archlinux installation with openblas
+    export THEANO_FLAGS=blas__ldflags="-L/usr/lib/ -lopenblas"
 
     # Doom emacs command
     export PATH="$HOME/.emacs.d/bin:$PATH"
@@ -54,6 +56,8 @@ export EDITOR="nvim"
 # export QT_WAYLAND_FORCE_DPI=96
 
 # Wayland things
+# For sway: Make sure backend is detected
+export MPLBACKEND=TkAgg
 if [ -n "$WAYLAND_DISPLAY" ]
 then
     export XDG_SESSION_TYPE=wayland
