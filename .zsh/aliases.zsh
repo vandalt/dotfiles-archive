@@ -72,7 +72,7 @@ alias jlab='jupyter lab'
 alias p='ipython'
 # enable shared libraries (requied for some packages like theano)
 alias spyenv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv'
-alias psh='poetry shell'
+alias pup='python -m pip install -U pip'
 
 # Power
 alias sdn='shutdown now'
