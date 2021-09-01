@@ -40,6 +40,8 @@ then
     export VECLIB_MAXIMUM_THREADS=1
     export NUMEXPR_NUM_THREADS=1
 
+    # Jupyter lab extension in userland
+    export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
 fi
 
 
@@ -57,7 +59,7 @@ export EDITOR="nvim"
 
 # Wayland things
 # For sway: Make sure backend is detected
-export MPLBACKEND=TkAgg
+export MPLBACKEND=GTK3Agg
 if [ -n "$WAYLAND_DISPLAY" ]
 then
     export XDG_SESSION_TYPE=wayland

@@ -80,42 +80,25 @@ require('packer').startup(function()
     }
   }
   use 'folke/which-key.nvim'
-  -- use 'glepnir/dashboard-nvim'
-  use {
-    'TimUntersberger/neogit',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'sindrets/diffview.nvim'
-    },
-  }
   use 'akinsho/nvim-toggleterm.lua'
-  -- use {'kristijanhusak/orgmode.nvim', config = function()
-  --   require('orgmode').setup{}
+  -- use {
+  --   'oberblastmeister/neuron.nvim',
+  --   branch = "unstable",
+  --   requires = {
+  --     'nvim-lua/popup.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-telescope/telescope.nvim',
+  --   },
+  --   config = function()
+  --     require'neuron'.setup {
+  --       virtual_titles = true,
+  --       mappings = true,
+  --       run = nil, -- function to run when in neuron dir
+  --       neuron_dir = "~/notes", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
+  --       leader = "gz", -- the leader key to for all mappings, remember with 'go zettel'
+  --     }
   --   end
   -- }
-  use {
-    'oberblastmeister/neuron.nvim',
-    branch = "unstable",
-    requires = {
-      'nvim-lua/popup.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require'neuron'.setup {
-        virtual_titles = true,
-        mappings = true,
-        run = nil, -- function to run when in neuron dir
-        neuron_dir = "~/notes", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
-        leader = "gz", -- the leader key to for all mappings, remember with 'go zettel'
-      }
-    end
-  }
-
-  -- Activate poetry envs in vim
-  -- Small workaround to make manual activation work
-  -- TODO: Make auto activation work
-  -- use '~/projects/poet-v'
 
   -- UI plugins
   use 'altercation/vim-colors-solarized'
@@ -195,8 +178,10 @@ vim.api.nvim_exec([[
 -- Colors
 vim.cmd [[syntax enable]]
 vim.o.termguicolors = true
-vim.g.gruvbox_bold  = 0
-vim.cmd [[colorscheme gruvbox]]
+-- vim.g.gruvbox_bold  = 0
+vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+vim.g.tokyonight_style = "night"
+vim.cmd [[colorscheme tokyonight]]
 vim.cmd [[call togglebg#map("<F5>")]]  -- TODO: Implement this and remove solarized
 
 -- Python: always unix fileformat
@@ -352,7 +337,10 @@ vim.api.nvim_set_keymap('', '<A-e>', ':setlocal spell! spelllang=en_ca<CR>', {})
 
 -- {{{ LSP configuration
 --------------------------------------------------------------
+
 local nvim_lsp = require('lspconfig')
+local configs = require('lspconfig/configs')
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -508,12 +496,78 @@ nvim_lsp.texlab.setup{
 nvim_lsp.ccls.setup{on_attach = on_attach}
 nvim_lsp.vimls.setup{on_attach = on_attach}
 
+-- zk has different config because not for coding
+vim.cmd [[command! -nargs=0 ZkIndex :lua require'lspconfig'.zk.index()]]
+vim.cmd [[command! -nargs=? ZkNew :lua require'lspconfig'.zk.new(<args>)]]
+
+configs.zk = {
+  default_config = {
+    cmd = {'zk', 'lsp'},
+    filetypes = {'markdown'},
+    root_dir = function()
+      return vim.loop.cwd()
+    end,
+    settings = {}
+  };
+}
+
+-- Index the notebook of the current note.
+configs.zk.index = function()
+  vim.lsp.buf.execute_command({
+    command = "zk.index",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+  })
+end
+
+-- Create a new note in the current notebook.
+configs.zk.new = function(...)
+  vim.lsp.buf_request(0, 'workspace/executeCommand',
+    {
+        command = "zk.new",
+        arguments = {
+            vim.api.nvim_buf_get_name(0),
+            ...
+        },
+    },
+    function(_, _, result)
+      if not (result and result.path) then return end
+      vim.cmd("edit " .. result.path)
+    end
+  )
+end
+
+nvim_lsp.zk.setup({
+  on_attach = function(client, bufnr)
+    -- Key mappings
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local opts = { noremap=true, silent=false }
+    -- buf_set_keymap("i", "<S-tab>", "<cmd>lua vim.lsp.buf.completion()<CR>", opts)
+    -- Follow a Markdown link with <CR>.
+    buf_set_keymap("n", "<CR>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    -- Preview a note with K when the cursor is on a link.
+    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    -- Create a new note using the current visual selection for the note title. This will replace the selection with a link to the note.
+    buf_set_keymap("v", "<CR>", ":'<,'>lua vim.lsp.buf.range_code_action()<CR>", opts)
+    -- Reindex the notebook. Usually the language server does this automatically, so it's not often needed.
+    buf_set_keymap("n", "<leader>zi", ":ZkIndex<CR>", opts)
+    -- Create a new note after prompting for a title.
+    buf_set_keymap("n", "<leader>zn", ":ZkNew {title = vim.fn.input('Title: ')}<CR>", opts)
+    -- Create a new daily note in my `log/` notebook directory.
+    buf_set_keymap("n", "<leader>zl", ":ZkNew {dir = 'log'}<CR>", opts)
+    -- Find the backlinks for the note linked under the cursor.
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  end
+})
+
+
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.expand('~/programs/lua-language-server')
-local sumneko_binary = sumneko_root_path .. "/bin/Linux/" .. "lua-language-server"
-local sumneko_main = sumneko_root_path .. "/main.lua"
--- local sumneko_binary = 'lua-language-server'
--- local sumneko_main = '/usr/share/lua-language-server/main.lua'
+-- local sumneko_root_path = vim.fn.expand('~/programs/lua-language-server')
+-- local sumneko_binary = sumneko_root_path .. "/bin/Linux/" .. "lua-language-server"
+-- local sumneko_main = sumneko_root_path .. "/main.lua"
+local sumneko_binary = 'lua-language-server'
+local sumneko_main = '/usr/share/lua-language-server/main.lua'
 
 require('nlua.lsp.nvim').setup(nvim_lsp, {
   on_attach = on_attach,
@@ -735,12 +789,6 @@ vim.api.nvim_set_keymap('n', '<leader>fz', [[<cmd>lua require'telescope'.extensi
 
 -- vim.g.dashboard_default_executive = 'telescope'
 
--- Basic neogit setup
-local neogit = require('neogit')
-neogit.setup {
-  integrations = {diffview = true}
-}
-
 -- Terminals that can open and close
 require('toggleterm').setup{
   open_mapping = [[<A-\>]],
@@ -765,7 +813,7 @@ require'nvim-treesitter.configs'.setup {
   indent = {enable = false},
 }
 require('lualine').setup{
-  options = {theme = 'gruvbox',
+  options = {theme = 'tokyonight',
     section_separators = '',  -- on en revient des triangles à moment donné
     component_separators = '',
   }

@@ -1,12 +1,10 @@
-source ~/.config/neomutt/gruvbox.muttrc
-
 ### Identity and accounts
 set realname = "Thomas Vandal"
 set folder = ~/.mail  # Parent dir of all mail
 
 # Use UdeM account by default, but make both available with hools
-source ~/.config/neomutt/udem.muttrc							   # Main account info
-folder-hook 'udem' 'source ~/.config/neomutt/udem.muttrc'		   # School account hook
+source ~/.config/neomutt/udem.muttrc  # Main account info
+folder-hook 'udem' 'source ~/.config/neomutt/udem.muttrc'  # School account hook
 folder-hook 'personal' 'source ~/.config/neomutt/personal.muttrc'  # Personal account hook
 
 # Set mailboxes

@@ -2,15 +2,15 @@ profile laptop {
     output eDP-1 position 0,0 mode 3840x2160 scale 2.0
 }
 
-profile two {
-    output eDP-1 position 0,0 mode 3840x2160 scale 2.0
-    output "Unknown ASUS VG289 0x00005935" scale 1.5 position 1920,0 mode 3840x2160
-}
+#profile two {
+#    output eDP-1 position 0,0 mode 3840x2160 scale 2.0
+#    output "Unknown ASUS VG289 0x00005935" scale 1.5 position 1920,0 mode 3840x2160
+#}
 
-# profile two-alt {
-#     output "Unknown ASUS VG289 0x00005935" scale 1.5 position 0,0 mode 3840x2160
-#     output eDP-1 position 0,1440 mode 3840x2160 scale 2.0
-# }
+profile two-alt {
+    output "Unknown ASUS VG289 0x00005935" scale 1.5 position 0,0 mode 3840x2160
+    output eDP-1 position 0,1440 mode 3840x2160 scale 2.0
+}
 
 profile dellhp {
     output "Hewlett Packard HP L2445m 3CQ9400Z1V" position 0,0 mode 1920x1200

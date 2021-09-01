@@ -73,6 +73,7 @@ alias p='ipython'
 # enable shared libraries (requied for some packages like theano)
 alias spyenv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv'
 alias pup='python -m pip install -U pip'
+alias mplback='python -m pip install pycairo PyGObject'
 
 # Power
 alias sdn='shutdown now'
