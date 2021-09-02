@@ -1,0 +1,7 @@
+[calendars]
+
+[[personal]]
+path = "~/.calendars/personal/thomasvandal12@gmail.com/"
+
+[[work]]
+path = "~/.calendars/udem/calendar/"
