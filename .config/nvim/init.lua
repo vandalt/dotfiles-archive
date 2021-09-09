@@ -473,22 +473,31 @@ nvim_lsp.diagnosticls.setup {
 nvim_lsp.texlab.setup{
   on_attach = on_attach;
   settings = {
-    latex = {
+    texlab = {
       rootDirectory = ".",
       build = {
         executable = "latexmk",
         -- pvc  is for "preview continusly"
-        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc", "-xelatex" },
+        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc", "-xelatex", "%f" },
         forwardSearchAfter = true,
-        onSave = true
+        onSave = true,
+      },
+      chktex = {
+        onEdit = false,
+        onOpenAndSave = true
       },
       forwardSearch = {
-        -- executable = "zathura",
-        -- args = {"--synctex-forward", "%l:1:%f", "%p"},
-        execute = "evince-synctex",
-        args = {"-f", "%l", "%p", "\"code -g %f:%l\""},
+        executable = "zathura",
+        args = {"--synctex-forward", "%l:1:%f", "%p"},
+        -- execute = "evince-synctex",
+        -- args = {"-f", "%l", "%p", "\"code -g %f:%l\""},
         onSave = true
-      }
+      },
+      latexFormatter = "latexindent",
+      latexindent = {
+        modifyLineBreaks = false
+      },
+      formatterLineLength = 80,
     }
   }
 }

@@ -3,7 +3,7 @@ Encoding=UTF-8
 Name=Aladin
 GenericName=Aladin
 Comment=Aladin is an interactive software sky atlas
-Exec=/home/vandal/programs/Aladin/Aladin
+Exec=env XCURSOR_SIZE=48 /home/vandal/programs/Aladin/Aladin
 Icon=/home/vandal/Pictures/aladin.png
 Terminal=false
 Type=Application
